@@ -4,13 +4,13 @@
   </mat-card-header>
 
   <img mat-card-image src="{{ treino.imagem }}" alt="Capa do Treino" />
-    <mat-card-content>
+    <!-- <mat-card-content>
       <div *ngFor="let exercicio of treino.exercicios">
 
         <p>Exercicio: {{exercicio.nome}} Repetições: {{exercicio.repeticoes}}</p>
       </div>
 
-    </mat-card-content>
+    </mat-card-content> -->
   <!-- <p>{{treino.exercicios.flexao.nome}}</p>
   <p>{{treino.exercicios.flexao.repeticoes}}</p> -->
   <a routerLink="/treino" mat-raised-button (click)="treinar(treino.nome, treino.exercicios)" color="primary">Treinar</a>

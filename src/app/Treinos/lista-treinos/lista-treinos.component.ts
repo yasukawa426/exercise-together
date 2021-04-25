@@ -31,20 +31,20 @@ export class ListaTreinosComponent implements OnInit {
       imagem: 'https://images-na.ssl-images-amazon.com/images/I/81PyTDtJlnL.png',
       exercicios: [
         {
-          nome: 'flexao',
-          repeticoes: 2,
-          series: 1,
+          nome: 'Abdominal Obliquo',
+          repeticoes: 12,
+          series: 3,
         },
         {
-          nome: 'abdominal',
-          repeticoes: 3,
-          series: 2,
+          nome: 'Addominal Infra',
+          repeticoes: 12,
+          series: 3,
         },
       ],
     },
     {
       nome: 'Treino do Saitama',
-      imagem: 'https://pa1.narvii.com/6230/3657b0032487dde2baf18a77ff6997087f2f5a8f_hq.gif',
+      imagem: 'https://www.technofuss.com/wp-content/uploads/2021/02/One-Punch-Man.png',
       exercicios: [
         {
           nome: 'flexao',

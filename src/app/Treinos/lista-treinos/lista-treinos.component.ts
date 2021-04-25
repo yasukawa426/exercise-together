@@ -44,7 +44,7 @@ export class ListaTreinosComponent implements OnInit {
     },
     {
       nome: 'Treino do Saitama',
-      imagem: 'https://www.technofuss.com/wp-content/uploads/2021/02/One-Punch-Man.png',
+      imagem: 'https://pa1.narvii.com/6230/3657b0032487dde2baf18a77ff6997087f2f5a8f_hq.gif',
       exercicios: [
         {
           nome: 'flexao',

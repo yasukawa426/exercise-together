@@ -11,13 +11,15 @@ import { AppComponent } from './app.component';
 import { CabecalhoComponent } from './cabecalho/cabecalho.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListaTreinosComponent } from './Treinos/lista-treinos/lista-treinos.component';
+import { TreinoComponent } from './Treinos/treino/treino.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CabecalhoComponent,
-    ListaTreinosComponent
+    ListaTreinosComponent,
+    TreinoComponent
   ],
   imports: [
     BrowserModule,

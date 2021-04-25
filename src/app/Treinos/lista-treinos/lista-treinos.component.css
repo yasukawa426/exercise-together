@@ -1,0 +1,17 @@
+mat-card{
+  display: inline-block;
+  text-align: center;
+  height: 25%;
+  width:25%;
+  border:1px solid black;
+  margin-right:5px;
+  margin-bottom: 10px;
+}
+mat-card-title{
+  text-align: center;
+}
+img{
+  height: 250px;
+  border-top: 1px solid #000;
+  /* border-radius: 5%; */
+}

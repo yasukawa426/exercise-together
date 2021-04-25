@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Exercicio } from '../exercicio.model';
 
 @Component({
   selector: 'app-treino',
@@ -9,7 +10,7 @@ export class TreinoComponent implements OnInit {
   @Input() treino = {};
   titulo: any = localStorage.getItem('TreinoNome');
   //vetor json com os exercicios
-  exercicios = [{}];
+  exercicios: Exercicio[] = [];
   //variaveis do exercicio
   nome: any;
   repeticoes: any;
@@ -26,12 +27,12 @@ export class TreinoComponent implements OnInit {
         this.series = localStorage.getItem('series' + (i + 1));
 
         //criando um json de exercicio com os valores do localStorage
-        const exercicio = {
+        const exercicio: Exercicio = {
           nome: this.nome,
-          repeticoes: this.repeticoes,
+          repeticao: this.repeticoes,
           series: this.series,
         };
-        
+
         //adicionando os json no vetor exercicio
         this.exercicios.push(exercicio)
 

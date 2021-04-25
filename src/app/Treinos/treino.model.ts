@@ -1,8 +1,8 @@
 export interface Treino{
   exercicio: {
+    nome: string;
     repetições: number,
-    nome: string,
     series: number
   },
-  
+
 }

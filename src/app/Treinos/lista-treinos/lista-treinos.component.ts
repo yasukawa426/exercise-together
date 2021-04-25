@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-lista-treinos',
@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista-treinos.component.css'],
 })
 export class ListaTreinosComponent implements OnInit {
+  @Output() abrirTreino = new EventEmitter();
   constructor() {}
+
   listaTreinos: any = [
     {
       nome: 'Treino do Michael Felps',
@@ -118,6 +120,23 @@ export class ListaTreinosComponent implements OnInit {
   treinar(nome: any, exercicios: any) {
     console.log(nome);
     console.log(exercicios);
+
+    // const treino = {
+    //   nome: nome,
+    //   exercicios: exercicios
+
+    // }
+    //limpando o local storage antes de colocar
+    localStorage.clear()
+    localStorage.setItem('TreinoNome', nome)
+    for(let i = 0; i < exercicios.length; i++ ){
+      let exercicio = exercicios[i]
+      localStorage.setItem("nome" + (i + 1), exercicio.nome)
+      localStorage.setItem("series" + (i + 1), exercicio.series)
+      localStorage.setItem("repeticoes" + (i + 1), exercicio.repeticoes)
+    }
+
+    //this.abrirTreino.emit(treino);
   }
   ngOnInit(): void {}
 }

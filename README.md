@@ -1,4 +1,4 @@
 # Exercise Together
 Projeto da Faculdade. Iremos desenvolver um aplicativo para incentivar a prática de atividades física em casa.
 
-Trello: https://github.com/yasukawa426/exercise-together
+Trello: https://trello.com/b/G0sz4lgk/exercise-together

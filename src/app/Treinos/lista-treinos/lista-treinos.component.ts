@@ -100,7 +100,7 @@ export class ListaTreinosComponent implements OnInit {
       let exercicio = exercicios[i]
       localStorage.setItem("nome" + (i + 1), exercicio.nome)
       localStorage.setItem("series" + (i + 1), exercicio.series)
-      localStorage.setItem("repeticoes" + (i + 1), exercicio.repeticoes)
+      localStorage.setItem("repeticoes" + (i + 1), exercicio.repeticao)
       localStorage.setItem("imagem" + (i + 1), exercicio.imagem)
       localStorage.setItem("descricao" + (i + 1), exercicio.descricao)
     }

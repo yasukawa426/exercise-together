@@ -23,29 +23,34 @@ export class TreinoComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    for (let i = 0; i < 30; i++) {
+    let numeroExercicios: any= localStorage.getItem('numeroExercicios');
+    numeroExercicios = parseInt(numeroExercicios)
+
+    for (let i = 0; i < numeroExercicios; i++) {
+
+      //n precisa mais checar se o nome é null agr q sabe quantos exercicios tem
+      // if (this.nome != null) {
+      // }
       this.nome = localStorage.getItem('nome' + (i + 1));
       // exercicio: any = localStorage.getItem("nome" + (i+1))
-      if (this.nome != null) {
-        this.nome = localStorage.getItem('nome' + (i + 1));
-        this.repeticoes = localStorage.getItem('repeticoes' + (i + 1));
-        this.series = localStorage.getItem('series' + (i + 1));
-        this.imagem = localStorage.getItem('imagem' + (i + 1));
-        this.descricao = localStorage.getItem('descricao' + (i + 1));
+      this.nome = localStorage.getItem('nome' + (i + 1));
+      this.repeticoes = localStorage.getItem('repeticoes' + (i + 1));
+      this.series = localStorage.getItem('series' + (i + 1));
+      this.imagem = localStorage.getItem('imagem' + (i + 1));
+      this.descricao = localStorage.getItem('descricao' + (i + 1));
 
-        //criando um json de exercicio com os valores do localStorage
-        const exercicio: Exercicio = {
-          nome: this.nome,
-          repeticao: this.repeticoes,
-          series: this.series,
-          imagem: this.imagem,
-          descricao: this.descricao
-        };
+      //criando um json de exercicio com os valores do localStorage
+      const exercicio: Exercicio = {
+        nome: this.nome,
+        repeticao: this.repeticoes,
+        series: this.series,
+        imagem: this.imagem,
+        descricao: this.descricao
+      };
 
-        //adicionando os json no vetor exercicio
-        this.exercicios.push(exercicio)
+      //adicionando os json no vetor exercicio
+      this.exercicios.push(exercicio)
 
-      }
     }
   }
   //executado quando clicar em "?"

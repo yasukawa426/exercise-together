@@ -29,7 +29,7 @@ export class ListaTreinosComponent implements OnInit {
           repeticao: 10,
           series: 1,
           imagem: "https://image.shutterstock.com/shutterstock/photos/715195228/display_1500/stock-vector-woman-who-was-fat-doing-sit-up-on-mat-illustration-about-correct-exercise-posture-715195228.jpg",
-          descricao: "Com a força do abdômen, levante a parte superior do seu corpo até onde conseguir, sem necessidade de tentar encostar o peitoral nos joelhos. Não levante a lombar do chão" 
+          descricao: "Com a força do abdômen, levante a parte superior do seu corpo até onde conseguir, sem necessidade de tentar encostar o peitoral nos joelhos. Não levante a lombar do chão"
         }
       ],
     },
@@ -69,7 +69,7 @@ export class ListaTreinosComponent implements OnInit {
           repeticao: 10,
           series: 1,
           imagem: "https://image.shutterstock.com/shutterstock/photos/715195228/display_1500/stock-vector-woman-who-was-fat-doing-sit-up-on-mat-illustration-about-correct-exercise-posture-715195228.jpg",
-          descricao: "Com a força do abdômen, levante a parte superior do seu corpo até onde conseguir, sem necessidade de tentar encostar o peitoral nos joelhos. Não levante a lombar do chão" 
+          descricao: "Com a força do abdômen, levante a parte superior do seu corpo até onde conseguir, sem necessidade de tentar encostar o peitoral nos joelhos. Não levante a lombar do chão"
         },
         {
           nome: 'Agachamento',
@@ -96,6 +96,7 @@ export class ListaTreinosComponent implements OnInit {
     //limpando o local storage antes de colocar
     localStorage.clear()
     localStorage.setItem('TreinoNome', nome)
+    let numeroExercicios = 0;
     for(let i = 0; i < exercicios.length; i++ ){
       let exercicio = exercicios[i]
       localStorage.setItem("nome" + (i + 1), exercicio.nome)
@@ -103,7 +104,9 @@ export class ListaTreinosComponent implements OnInit {
       localStorage.setItem("repeticoes" + (i + 1), exercicio.repeticao)
       localStorage.setItem("imagem" + (i + 1), exercicio.imagem)
       localStorage.setItem("descricao" + (i + 1), exercicio.descricao)
+      numeroExercicios += 1
     }
+    localStorage.setItem("numeroExercicios", numeroExercicios.toString())
   }
   ngOnInit(): void {}
 }

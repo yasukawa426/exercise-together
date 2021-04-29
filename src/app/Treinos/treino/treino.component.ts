@@ -15,6 +15,8 @@ export class TreinoComponent implements OnInit {
   nome: any;
   repeticoes: any;
   series: any;
+  imagem: any;
+  descricao: any;
   constructor() {}
 
   ngOnInit(): void {
@@ -31,6 +33,8 @@ export class TreinoComponent implements OnInit {
           nome: this.nome,
           repeticao: this.repeticoes,
           series: this.series,
+          imagem: this.imagem,
+          descricao: this.descricao
         };
 
         //adicionando os json no vetor exercicio

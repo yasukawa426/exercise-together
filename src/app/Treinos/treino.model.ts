@@ -1,8 +1,8 @@
+import { Exercicio } from "./exercicio.model";
+
 export interface Treino{
-  exercicio: {
-    nome: string;
-    repetições: number,
-    series: number
-  },
+  nome: string;
+  imagem: string;
+  exercicios: Exercicio[]
 
 }

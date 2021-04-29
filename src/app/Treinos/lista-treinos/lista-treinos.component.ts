@@ -70,62 +70,10 @@ export class ListaTreinosComponent implements OnInit {
     },
   ];
 
-  // listaTreinos: any = [
-  //   {
-  //     nome: 'Treino do Michael Felps',
-  //     exercicios: [{
-  //       nome: 'flexao',
-  //       repeticoes: 2,
-  //       seris: 1
-  //     },
-  //     {
-  //       nome: 'abdominal',
-  //       repeticoes: 3,
-  //       series: 2
-  //     }
-  //   ]
-
-  //   },
-  //   {
-  //     nome: 'Tanquinho em 20 dias',
-  //     exercicios: {
-  //       flexao: {
-  //         nome: 'Flexão',
-  //         repeticoes: 5,
-  //         series: 2,
-  //       },
-  //       agachamento: {
-  //         nome: 'Agachamento',
-  //         repeticoes: 3,
-  //         series: 1,
-  //       },
-  //     },
-  //   },
-  //   {
-  //     nome: 'Treino do Saitama',
-  //     exercicios: {
-  //       flexao: {
-  //         nome: 'Flexão',
-  //         repeticoes: 5,
-  //         series: 2,
-  //       },
-  //       agachamento: {
-  //         nome: 'Agachamento',
-  //         repeticoes: 3,
-  //         series: 1,
-  //       },
-  //     },
-  //   },
-  // ];
   treinar(nome: any, exercicios: any) {
     console.log(nome);
     console.log(exercicios);
 
-    // const treino = {
-    //   nome: nome,
-    //   exercicios: exercicios
-
-    // }
     //limpando o local storage antes de colocar
     localStorage.clear()
     localStorage.setItem('TreinoNome', nome)
@@ -135,8 +83,6 @@ export class ListaTreinosComponent implements OnInit {
       localStorage.setItem("series" + (i + 1), exercicio.series)
       localStorage.setItem("repeticoes" + (i + 1), exercicio.repeticoes)
     }
-
-    //this.abrirTreino.emit(treino);
   }
   ngOnInit(): void {}
 }

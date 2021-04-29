@@ -27,6 +27,8 @@ export class TreinoComponent implements OnInit {
         this.nome = localStorage.getItem('nome' + (i + 1));
         this.repeticoes = localStorage.getItem('repeticoes' + (i + 1));
         this.series = localStorage.getItem('series' + (i + 1));
+        this.imagem = localStorage.getItem('imagem' + (i + 1));
+        this.descricao = localStorage.getItem('descricao' + (i + 1));
 
         //criando um json de exercicio com os valores do localStorage
         const exercicio: Exercicio = {

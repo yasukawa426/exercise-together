@@ -3,5 +3,5 @@ export interface Exercicio{
   repeticao: any;
   series: any;
   imagem: any;
-  descrição: any;
+  descricao: any;
 }

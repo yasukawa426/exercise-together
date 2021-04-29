@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Exercicio } from '../exercicio.model'
+import { Exercicio } from '../Exercicios/exercicio.model'
 import { Treino } from '../treino.model';
 
 @Component({

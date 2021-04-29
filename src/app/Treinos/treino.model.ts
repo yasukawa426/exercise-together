@@ -1,4 +1,4 @@
-import { Exercicio } from "./exercicio.model";
+import { Exercicio } from "./Exercicios/exercicio.model";
 
 export interface Treino{
   nome: string;

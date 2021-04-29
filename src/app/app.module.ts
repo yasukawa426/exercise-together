@@ -5,6 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import {  MatButtonModule } from '@angular/material/button';
+import { MatDialogModule} from '@angular/material/dialog'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,7 @@ import { CabecalhoComponent } from './cabecalho/cabecalho.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListaTreinosComponent } from './Treinos/lista-treinos/lista-treinos.component';
 import { TreinoComponent } from './Treinos/treino/treino.component';
+import { DialogoDescricaoExercicioComponent } from './Treinos/Exercicios/dialogo-descricao-exercicio/dialogo-descricao-exercicio.component';
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { TreinoComponent } from './Treinos/treino/treino.component';
     AppComponent,
     CabecalhoComponent,
     ListaTreinosComponent,
-    TreinoComponent
+    TreinoComponent,
+    DialogoDescricaoExercicioComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { TreinoComponent } from './Treinos/treino/treino.component';
     BrowserAnimationsModule,
     MatExpansionModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

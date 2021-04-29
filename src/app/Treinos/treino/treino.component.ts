@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Exercicio } from '../exercicio.model';
+import {MatDialog} from '@angular/material/dialog';
+
+import { Exercicio } from '../Exercicios/exercicio.model';
+import { DialogoDescricaoExercicioComponent } from '../Exercicios/dialogo-descricao-exercicio/dialogo-descricao-exercicio.component'
 
 @Component({
   selector: 'app-treino',
@@ -17,7 +20,7 @@ export class TreinoComponent implements OnInit {
   series: any;
   imagem: any;
   descricao: any;
-  constructor() {}
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
     for (let i = 0; i < 30; i++) {
@@ -44,5 +47,14 @@ export class TreinoComponent implements OnInit {
 
       }
     }
+  }
+  //executado quando clicar em "?"
+  abrirDescricao(descricao:any){
+    //abre o component ../Exercicios/DialogDescricaoExercicioComponent injetando o dado descricao
+    this.dialog.open(DialogoDescricaoExercicioComponent, {
+      data:{
+        descricao: descricao
+      }
+    })
   }
 }

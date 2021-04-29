@@ -8,6 +8,9 @@ mat-card{
   margin-left: 25%;
   width:50%;
 }
+mat-card-actions{
+  text-align: start;
+}
 hr{
   color: black;
   border:1px solid black;
@@ -19,4 +22,8 @@ img{
 }
 .corpo-cartao{
   /* border:1px solid black; */
+}
+
+button{
+  border-radius: 50%;
 }

@@ -4,12 +4,20 @@
   <mat-card *ngFor="let exercicio of exercicios">
     <mat-card-header>
       <mat-card-title>{{exercicio.nome}}</mat-card-title>
+      
+      
 
     </mat-card-header>
     <!-- <hr> -->
-    <img mat-card-image src="https://pa1.narvii.com/6230/3657b0032487dde2baf18a77ff6997087f2f5a8f_hq.gif" alt="saitama">
-    <p class="corpo-cartao">Repetições: {{exercicio.repeticao}}</p>
-    <p class="corpo-cartao">Series: {{exercicio.series}}</p>
+    <img mat-card-image src="{{exercicio.imagem}}" alt="Ilustração do Exercicio">
+    <mat-card-content>
+
+      <p class="corpo-cartao">Repetições: {{exercicio.repeticao}}</p>
+      <p class="corpo-cartao">Series: {{exercicio.series}}</p>
+    </mat-card-content>
+    <mat-card-actions >
+      <button mat-raised-button color="primary" (click)="abrirDescricao(exercicio.descricao)">?</button>
+    </mat-card-actions>
   </mat-card>
 </main>
 

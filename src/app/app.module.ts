@@ -32,7 +32,7 @@ import { DialogoDescricaoExercicioComponent } from './Treinos/Exercicios/dialogo
     MatExpansionModule,
     MatCardModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

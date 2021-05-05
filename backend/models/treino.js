@@ -18,4 +18,4 @@ const treinoSchema = mongoose.Schema ({
 
 //criamos o modelo associado ao nome Treino e exportamos
 //tornando acessível para outros módulos da aplicação
-module.exports = mongoose.model('Cliente', treinoSchema);
+module.exports = mongoose.model('Treino', treinoSchema);

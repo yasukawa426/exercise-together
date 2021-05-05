@@ -6,7 +6,13 @@ const mongoose = require ('mongoose');
 const treinoSchema = mongoose.Schema ({
   nome: {type: String, required: true},
   imagem: {type: String, required: false, default: '00000000'},
-  exercicios:
+  exercicios: {
+    nome: {type: String, required: true},
+    repeticao: {type: String, required: true},
+    series: {type: String, required: true},
+    imagem: {type: String, required: true},
+    descricao: {type: String, required: true},
+  }
 
 });
 

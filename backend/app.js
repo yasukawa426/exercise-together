@@ -83,7 +83,8 @@ const treino = [
 
 mongoose.connect ('mongodb+srv://x2_admin:x20123@clusterx2.2ajvc.mongodb.net/x2Database?retryWrites=true&w=majority').then(() => {
   console.log ("Conexão OK")
-}).catch(() => {
+}).catch((err) => {
+  console.log(err)
   console.log("Conexão NOK")
 });
 

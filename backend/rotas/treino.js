@@ -20,8 +20,17 @@ router.get("", (req, res, next) => {
 })
 
 router.post("", (req, res, next) =>{
-  const treino = req.body;
-  console.log(body)
+  body = req.body
+  
+  const treino = new Treino({
+    nome:body.nome,
+    imagem:body.imagem,
+    exercicios:body.exercicios,
+  })
+  //salva no banco
+  treino.save()
+  console.log(treino);
+  res.status(201).json({mensagem: "Booooa, recebi seu treino e inseri no banco", treino: treino})
 })
 
 

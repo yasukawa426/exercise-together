@@ -19,6 +19,7 @@ router.get("", (req, res, next) => {
   })
 })
 
+//adiciona um treino na tabela treinos
 router.post("", (req, res, next) =>{
   body = req.body
   

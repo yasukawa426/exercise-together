@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { TreinoService } from './Treinos/treino.service'
 import { HttpClientModule } from '@angular/common/http'
+import { ExercicioService } from './Treinos/Exercicios/exercicio.service'
 
 
 
@@ -48,7 +49,7 @@ import { HttpClientModule } from '@angular/common/http'
     ReactiveFormsModule,
     MatInputModule,
   ],
-  providers: [TreinoService],
+  providers: [TreinoService,ExercicioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

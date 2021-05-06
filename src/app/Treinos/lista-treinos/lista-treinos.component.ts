@@ -19,7 +19,7 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
   private treinosSubscription: Subscription;
   //gif alternativo de flexao https://upload.wikimedia.org/wikipedia/commons/b/b8/Liegestuetz02_ani_fcm.gif
 
-  
+
 
   treinar(nome: any, exercicios: any) {
     console.log(nome);
@@ -40,6 +40,7 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
     }
     localStorage.setItem("numeroExercicios", numeroExercicios.toString())
   }
+  
   ngOnInit(): void {
 
     this.treinoService.getTreinos();

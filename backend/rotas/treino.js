@@ -17,7 +17,11 @@ router.get("", (req, res, next) => {
     //   console.log(treinos[2].exercicios[i]);
     // }
   })
+})
 
+router.post("", (req, res, next) =>{
+  const treino = req.body;
+  console.log(body)
 })
 
 

@@ -9,6 +9,7 @@ app.use(express.json())
 
 //pegando os endpoints
 const treinoRoutes = require('./rotas/treino')
+const exercicioRoutes = require ('./rotas/exercicio')
 
 
 
@@ -23,5 +24,6 @@ mongoose.connect ('mongodb+srv://x2_admin:x20123@clusterx2.2ajvc.mongodb.net/exe
 
 //pra comçear a usar os endpoints
 app.use('/api/treinos', treinoRoutes);
+app.use('/api/exercicios', exercicioRoutes);
 
 module.exports = app;

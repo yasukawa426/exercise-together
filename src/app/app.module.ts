@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { TreinoService } from './Treinos/treino.service'
+import { HttpClientModule } from '@angular/common/http'
 
 
 
@@ -43,7 +44,7 @@ import { TreinoService } from './Treinos/treino.service'
     MatDialogModule,
     FormsModule,
     MatSelectModule,
-
+    HttpClientModule,
     ReactiveFormsModule,
     MatInputModule,
   ],

@@ -117,7 +117,7 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
 
-    this.listaTreinos = this.treinoService.getTreinos();
+    this.treinoService.getTreinos();
     //ta pegando a listaTreinosAtualizada como observable e se inscrevendo nela. Td vez q essa lista é atualizada (td vez q chega naquele .next()), atualiza a lista local q foi inicializada com o metodo .getTreinos()
     this.treinosSubscription = this.treinoService.getListaDeTreinosAtualizadaObservable().subscribe((treinos: Treino[]) => {
       this.listaTreinos = treinos;

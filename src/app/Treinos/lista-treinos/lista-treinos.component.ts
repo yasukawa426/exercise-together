@@ -1,20 +1,22 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Exercicio } from '../Exercicios/exercicio.model'
 import { Treino } from '../treino.model';
 import { TreinoService } from '../treino.service';
+import { Subscription, Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-lista-treinos',
   templateUrl: './lista-treinos.component.html',
   styleUrls: ['./lista-treinos.component.css'],
 })
-export class ListaTreinosComponent implements OnInit {
-  @Input() treinos = [];
+export class ListaTreinosComponent implements OnInit, OnDestroy {
 
-  @Output() abrirTreino = new EventEmitter();
   constructor(public treinoService: TreinoService) {}
 
+
   listaTreinos: Treino[] = [];
+  private treinosSubscription: Subscription;
   //gif alternativo de flexao https://upload.wikimedia.org/wikipedia/commons/b/b8/Liegestuetz02_ani_fcm.gif
 
   // listaTreinos: Treino[] = [
@@ -114,6 +116,16 @@ export class ListaTreinosComponent implements OnInit {
     localStorage.setItem("numeroExercicios", numeroExercicios.toString())
   }
   ngOnInit(): void {
-    this.treinos = this.treinoService.getTreinos();
+
+    this.listaTreinos = this.treinoService.getTreinos();
+    //ta pegando a listaTreinosAtualizada como observable e se inscrevendo nela. Td vez q essa lista é atualizada (td vez q chega naquele .next()), atualiza a lista local q foi inicializada com o metodo .getTreinos()
+    this.treinosSubscription = this.treinoService.getListaDeTreinosAtualizadaObservable().subscribe((treinos: Treino[]) => {
+      this.listaTreinos = treinos;
+    })
+  }
+
+  ngOnDestroy(): void {
+    //quando lista-treino é fechado, se desinscreve da listaAtuliaza para imperdir um vazamento de memoria
+    this.treinosSubscription.unsubscribe();
   }
 }

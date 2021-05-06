@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Exercicio } from '../Exercicios/exercicio.model'
 import { Treino } from '../treino.model';
 
@@ -8,6 +8,8 @@ import { Treino } from '../treino.model';
   styleUrls: ['./lista-treinos.component.css'],
 })
 export class ListaTreinosComponent implements OnInit {
+  @Input() treinos = [];
+
   @Output() abrirTreino = new EventEmitter();
   constructor() {}
 

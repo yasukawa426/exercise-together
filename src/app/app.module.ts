@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
-import {  MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule} from '@angular/material/dialog'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +15,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListaTreinosComponent } from './Treinos/lista-treinos/lista-treinos.component';
 import { TreinoComponent } from './Treinos/treino/treino.component';
 import { DialogoDescricaoExercicioComponent } from './Treinos/Exercicios/dialogo-descricao-exercicio/dialogo-descricao-exercicio.component';
+import { TreinoInserirComponent } from './Treinos/treino-inserir/treino-inserir.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+
 
 
 @NgModule({
@@ -22,7 +28,8 @@ import { DialogoDescricaoExercicioComponent } from './Treinos/Exercicios/dialogo
     CabecalhoComponent,
     ListaTreinosComponent,
     TreinoComponent,
-    DialogoDescricaoExercicioComponent
+    DialogoDescricaoExercicioComponent,
+    TreinoInserirComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +40,11 @@ import { DialogoDescricaoExercicioComponent } from './Treinos/Exercicios/dialogo
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
+    FormsModule,
+    MatSelectModule,
+
+    ReactiveFormsModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

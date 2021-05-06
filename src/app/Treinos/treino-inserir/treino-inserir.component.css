@@ -1,0 +1,9 @@
+mat-form-field,
+mat-select {
+width: 100%;
+}
+
+mat-form-field,
+input {
+  width: 100%;
+}

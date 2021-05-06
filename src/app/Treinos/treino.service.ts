@@ -19,5 +19,12 @@ export class TreinoService {
       exercicios: exercicios,
     };
     this.treinos.push(treino)
+    //avisa a quem ta inscrito q algo aconteceu. Assim os observadores podem reagir
+    this.listaTreinosAtualizada.next([...this.treinos])
+  }
+
+  //os componentes interessados em obter uma cópia da lista toda vez q ela for atualizada utilizarão este método para obter o bojeto Observable e então se inscrevem nele (.subscribe() ao chamar esse metodo).
+  getListaDeTreinosAtualizadaObservable(){
+    return this.listaTreinosAtualizada.asObservable();
   }
 }

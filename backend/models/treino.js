@@ -5,7 +5,7 @@ const mongoose = require ('mongoose');
 //note a semelhança com recursos de bases relacionais
 const treinoSchema = mongoose.Schema ({
   nome: {type: String, required: true},
-  imagem: {type: String, required: false, default: '00000000'},
+  imagem: {type: String, required: true},
   exercicios: []
 
 });

@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Exercicio } from '../Exercicios/exercicio.model'
 import { Treino } from '../treino.model';
+import { TreinoService } from '../treino.service';
 
 @Component({
   selector: 'app-lista-treinos',
@@ -11,7 +12,7 @@ export class ListaTreinosComponent implements OnInit {
   @Input() treinos = [];
 
   @Output() abrirTreino = new EventEmitter();
-  constructor() {}
+  constructor(public treinoService: TreinoService) {}
 
   //gif alternativo de flexao https://upload.wikimedia.org/wikipedia/commons/b/b8/Liegestuetz02_ani_fcm.gif
   listaTreinos: Treino[] = [

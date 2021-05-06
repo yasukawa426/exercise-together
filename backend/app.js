@@ -12,7 +12,7 @@ const treinoRoutes = require('./rotas/treino')
 
 
 
-mongoose.connect ('mongodb+srv://x2_admin:x20123@clusterx2.2ajvc.mongodb.net/x2Database?retryWrites=true&w=majority').then(() => {
+mongoose.connect ('mongodb+srv://x2_admin:x20123@clusterx2.2ajvc.mongodb.net/exerciseTogether?retryWrites=true&w=majority').then(() => {
   console.log ("Conexão OK")
 }).catch((err) => {
   console.log(err)

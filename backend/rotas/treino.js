@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const Treino = require("../models/treino");
 const multer = require ("multer");
+const mongoose = require ('mongoose');
 
 const armazenamento = multer.diskStorage({
   //requisiçao, arquivo extraido e uma funçao que indica um erro ou devolve o diretorio que as //fotos vao ficar
@@ -25,15 +26,16 @@ const MIME_TYPE_EXTENSAO_MAPA = {
 }
 
 //definindo o "schema"
-const clienteSchema = mongoose.Schema ({
-  nome: { type: String, required: true},
-  imagemURL: { type: String, required: true},
-  exercicios: { type: Exercicio, required: true}
-})
+// const clienteSchema = mongoose.Schema ({
+//   nome: { type: String, required: true},
+//   imagemURL: { type: String, required: true},
+//   exercicios: { type: Exercicio, required: true}
+// })
 
 
 //pega tds os treinos da tabela treino endpoint : localhost:3000/api/treinos
 router.get("", (req, res, next) => {
+  console.log("Recebi um get de treinos!")
   treinos = Treino.find().then(documents => {
     res.status(200).json({
       mensagem:"Tudo ok no get, toma os treinos",
@@ -60,7 +62,7 @@ router.post("", multer({storage: armazenamento}).single('imagem'), (req, res, ne
   treino.save().then(treinoInserido => {
     res.status(201).json({mensagem: "Booooa, recebi seu treino e inseri no banco", treino: {
       nome: treinoInserido.nome,
-      imagemURL: treinoInserido.imagemURL,
+      imagemURL: treinoInserido.imagem,
       exercicios: treinoInserido.exercicios
     }
     })

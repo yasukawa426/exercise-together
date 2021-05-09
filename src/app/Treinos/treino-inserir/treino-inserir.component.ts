@@ -53,9 +53,10 @@ export class TreinoInserirComponent implements OnInit, OnDestroy {
   onAdicionarTreino() {
     this.treinoService.adicionarTreino = (
       this.form.value.nome,
-      this.form.value.imagem,
+      this.form.value.imagemURL,
       this.form.value.exercicios
     );
+    
     this.form.reset();
   }
 

@@ -13,7 +13,7 @@
   </div>
 
   <mat-form-field appearance="fill">
-    <mat-label>Exercicios de Peitoral</mat-label>
+    <mat-label>Selecione os Exercícios</mat-label>
     <mat-select [formControl]="exercicios" multiple formControlName="exercicios" >
       <mat-option *ngFor="let exercicio of listaDeExercicios" [value]="exercicio">{{exercicio.nome}}</mat-option>
     </mat-select>

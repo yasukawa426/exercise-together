@@ -38,33 +38,33 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
 
   //esse metodo só testa se ta adicionando no banco
   teste() {
-    const treino: Treino = {
-      nome: 'Treino dRoberto Calros',
-      imagem:
-        'https://www.olimpiadatododia.com.br/wp-content/uploads/2020/06/Michael-Phelps-recordista-de-medalhas-de-ouro-numa-u%CC%81nica-edic%CC%A7a%CC%83o-dos-Jogos-Oli%CC%81mpicos-Pequim-2008-1280x720.jpg',
-      exercicios: [
-        {
-          nome: 'Flexao',
-          repeticao: 2,
-          series: 1,
-          imagem:
-            'https://image.shutterstock.com/shutterstock/photos/454190938/display_1500/stock-vector-step-instruction-for-push-up-of-woman-cartoon-illustration-about-work-out-454190938.jpg',
-          descricao:
-            'Abaixe o corpo de forma uniforme até que o peito fique a uma mão travessa do solo, sem lhe tocar e de seguida regresse a posição inicial',
-        },
-        {
-          nome: 'Cambalhota',
-          repeticao: 2,
-          series: 1,
-          imagem:
-            'https://image.shutterstock.com/shutterstock/photos/454190938/display_1500/stock-vector-step-instruction-for-push-up-of-woman-cartoon-illustration-about-work-out-454190938.jpg',
-          descricao:
-            'Abaixe o corpo de forma uniforme até que o peito fique a uma mão travessa do solo, sem lhe tocar e de seguida regresse a posição inicial',
-        },
-      ],
-    };
+    // const treino: Treino = {
+    //   nome: 'Treino dRoberto Calros',
+    //   imagemURL:
+    //     'https://www.olimpiadatododia.com.br/wp-content/uploads/2020/06/Michael-Phelps-recordista-de-medalhas-de-ouro-numa-u%CC%81nica-edic%CC%A7a%CC%83o-dos-Jogos-Oli%CC%81mpicos-Pequim-2008-1280x720.jpg',
+    //   exercicios: [
+    //     {
+    //       nome: 'Flexao',
+    //       repeticao: 2,
+    //       series: 1,
+    //       imagem:
+    //         'https://image.shutterstock.com/shutterstock/photos/454190938/display_1500/stock-vector-step-instruction-for-push-up-of-woman-cartoon-illustration-about-work-out-454190938.jpg',
+    //       descricao:
+    //         'Abaixe o corpo de forma uniforme até que o peito fique a uma mão travessa do solo, sem lhe tocar e de seguida regresse a posição inicial',
+    //     },
+    //     {
+    //       nome: 'Cambalhota',
+    //       repeticao: 2,
+    //       series: 1,
+    //       imagem:
+    //         'https://image.shutterstock.com/shutterstock/photos/454190938/display_1500/stock-vector-step-instruction-for-push-up-of-woman-cartoon-illustration-about-work-out-454190938.jpg',
+    //       descricao:
+    //         'Abaixe o corpo de forma uniforme até que o peito fique a uma mão travessa do solo, sem lhe tocar e de seguida regresse a posição inicial',
+    //     },
+    //   ],
+    // };
 
-    this.treinoService.adicionarTreino(treino.nome, treino.imagem, treino.exercicios)
+    // this.treinoService.adicionarTreino(treino.nome, treino.imagemURL, treino.exercicios)
   }
   ngOnInit(): void {
     this.treinoService.getTreinos();

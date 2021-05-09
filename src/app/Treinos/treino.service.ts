@@ -29,7 +29,7 @@ export class TreinoService {
     const dadosTreino = new FormData();
     dadosTreino.append("nome", nome);
     dadosTreino.append('imagem', imagem);
-    dadosTreino.append('exercicios', exercicios)
+    dadosTreino.append('exercicios', JSON.stringify(exercicios))
 
     this.httpClient.post<{mensagem: string, treino: Treino}>('http://localhost:3000/api/treinos', dadosTreino).subscribe((dados) => {
       const treino: Treino = {

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -43,7 +42,6 @@ import { ExercicioService } from './Treinos/Exercicios/exercicio.service'
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
-    FormsModule,
     MatSelectModule,
     HttpClientModule,
     ReactiveFormsModule,

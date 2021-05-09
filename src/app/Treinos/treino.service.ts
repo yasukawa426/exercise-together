@@ -20,13 +20,23 @@ export class TreinoService {
     })
   }
 
-  adicionarTreino(nome:string, imagem:string, exercicios: Exercicio[]){
-    const treino: Treino = {
+  adicionarTreino(nome:string, imagem:File, exercicios: Exercicio[]){
+    /*const treino: Treino = {
       nome:nome,
       imagem: imagem,
       exercicios: exercicios,
-    };
-    this.httpClient.post<{mensagem: string}>('http://localhost:3000/api/treinos', treino).subscribe((dados) => {
+    };*/
+    const dadosTreino = new FormData();
+    dadosTreino.append("nome", nome);
+    dadosTreino.append('imagem', imagem);
+    dadosTreino.append('exercicios', exercicios)
+
+    this.httpClient.post<{mensagem: string, treino: Treino}>('http://localhost:3000/api/treinos', dadosTreino).subscribe((dados) => {
+      const treino: Treino = {
+        nome: nome,
+        imagemURL: dados.treino.imagemURL,
+        exercicios: exercicios
+      }
       this.treinos.push(treino)
       //avisa a quem ta inscrito q algo aconteceu. Assim os observadores podem reagir
     this.listaTreinosAtualizada.next([...this.treinos])

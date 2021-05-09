@@ -20,7 +20,14 @@ mongoose.connect ('mongodb+srv://x2_admin:x20123@clusterx2.2ajvc.mongodb.net/exe
   console.log("Conexão NOK")
 });
 
+//para ajustar o cabecalho da requisicao
+/*app.use ((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', "+");
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.setHeader(' Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS');
 
+  next();
+})*/
 
 //pra comçear a usar os endpoints
 app.use('/api/treinos', treinoRoutes);

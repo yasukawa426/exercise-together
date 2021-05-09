@@ -1,12 +1,23 @@
-<mat-form-field>
-  <input type="text" matInput placeholder="nome do treino" [(ngModel)]="nome" />
-</mat-form-field>
+<form [formGroup]= "form" (submit)="onAdicionarTreino()" >
 
-<mat-form-field appearance="fill">
-  <mat-label>Exercicios de Peitoral</mat-label>
-  <mat-select [formControl]="exercicios" multiple>
-    <mat-option *ngFor="let exercicio of listaDeExercicios" [value]="exercicio">{{exercicio.nome}}</mat-option>
-  </mat-select>
-</mat-form-field>
+  <mat-form-field>
+    <input type="text" matInput placeholder="nome do treino" formControlName="nome"  />
+  </mat-form-field>
 
-<button color= "primary" mat-raised-button (click)= "onAdicionarTreino()">Inserir novo treino</button>
+  <div>
+    <button mat-stroked-button type="button" (click)= "selecionaArquivo.click()" > Selecionar Imagem </button>
+    <input type="file" (change)= "onImagemSelecionada($event)" #selecionaArquivo formControlName="imagem">
+  </div>
+  <div class= "imagem-preview">
+    <img [src]= "previewImagem" *ngIf= "previewImagem && previewImagem !=='' && form.get('imagem').valid " [alt]= "form.value.nome">
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Exercicios de Peitoral</mat-label>
+    <mat-select [formControl]="exercicios" multiple formControlName="exercicios" >
+      <mat-option *ngFor="let exercicio of listaDeExercicios" [value]="exercicio">{{exercicio.nome}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button color= "primary" mat-raised-button >Inserir novo treino</button>
+</form>

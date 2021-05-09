@@ -12,7 +12,7 @@ import { mimeTypeValidator } from './mime-type.validator';
 })
 export class TreinoInserirComponent implements OnInit, OnDestroy {
 
-  exercicios = new FormControl();
+  //exercicios = new FormControl();
   //listaDeExercicios: string[] = ['Supino barra reto', 'Crucifixo halteres', 'Cross over', 'Flexão de braços'];
   listaDeExercicios: Exercicio[] = [];
   private exerciciosSubscription: Subscription
@@ -56,7 +56,7 @@ export class TreinoInserirComponent implements OnInit, OnDestroy {
       this.form.value.imagemURL,
       this.form.value.exercicios
     );
-    
+
     this.form.reset();
   }
 

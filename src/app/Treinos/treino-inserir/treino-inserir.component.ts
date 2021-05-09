@@ -19,9 +19,8 @@ export class TreinoInserirComponent implements OnInit, OnDestroy {
   nome: any;
   form: FormGroup;
   previewImagem: string;
-  treinoService: any;
 
-  constructor(public exercicioService: ExercicioService, treinoService: TreinoService) {}
+  constructor(public exercicioService: ExercicioService, public treinoService: TreinoService) {}
   ngOnInit(): void {
     this.exercicioService.getExercicios();
     this.exerciciosSubscription = this.exercicioService.getListaDeTreinosAtualizadaObservable().subscribe((exercicios: Exercicio[]) => {
@@ -50,9 +49,13 @@ export class TreinoInserirComponent implements OnInit, OnDestroy {
 
 
   onAdicionarTreino() {
+    console.log("Nome: ",this.form.value.nome)
+    console.log("Imagem: ",this.form.value.imagem)
+    console.log("Exercicios: ",this.form.value.exercicios)
+    console.log(this.form.value.nome)
     this.treinoService.adicionarTreino = (
       this.form.value.nome,
-      this.form.value.imagemURL,
+      this.form.value.imagem,
       this.form.value.exercicios
     );
 
@@ -61,6 +64,7 @@ export class TreinoInserirComponent implements OnInit, OnDestroy {
 
   onImagemSelecionada (event: Event) {
     const arquivo = (event.target as HTMLInputElement).files[0];
+    //valida a imagem e coloca no form
     this.form.patchValue ({'imagem': arquivo});
     this.form.get('imagem').updateValueAndValidity();
 

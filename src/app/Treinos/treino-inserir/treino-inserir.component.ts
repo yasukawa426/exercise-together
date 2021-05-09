@@ -41,7 +41,6 @@ export class TreinoInserirComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       })
     })
-
   }
 
   ngOnDestroy(): void {
@@ -64,6 +63,7 @@ export class TreinoInserirComponent implements OnInit, OnDestroy {
     const arquivo = (event.target as HTMLInputElement).files[0];
     this.form.patchValue ({'imagem': arquivo});
     this.form.get('imagem').updateValueAndValidity();
+
     const reader = new FileReader();
     reader.onload = () => {
       this.previewImagem = reader.result as string;

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Exercicio } from '../Exercicios/exercicio.model';
-import { TreinoService } from '../treino.service';
+import { TreinoService } from '../treino.service'
 import { ExercicioService } from '../Exercicios/exercicio.service';
 import { Subscription } from 'rxjs';
 import { mimeTypeValidator } from './mime-type.validator';
@@ -52,8 +52,8 @@ export class TreinoInserirComponent implements OnInit, OnDestroy {
     console.log("Nome: ",this.form.value.nome)
     console.log("Imagem: ",this.form.value.imagem)
     console.log("Exercicios: ",this.form.value.exercicios)
-    console.log(this.form.value.nome)
-    this.treinoService.adicionarTreino = (
+
+    this.treinoService.adicionarTreino(
       this.form.value.nome,
       this.form.value.imagem,
       this.form.value.exercicios

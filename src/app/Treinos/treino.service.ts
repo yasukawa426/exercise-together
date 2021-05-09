@@ -30,8 +30,9 @@ export class TreinoService {
     dadosTreino.append("nome", nome);
     dadosTreino.append('imagem', imagem);
     dadosTreino.append('exercicios', JSON.stringify(exercicios))
-
+    console.log("Uma linha antes de fazer o post")
     this.httpClient.post<{mensagem: string, treino: Treino}>('http://localhost:3000/api/treinos', dadosTreino).subscribe((dados) => {
+      console.log("Uma linha dps de fazer o post")
       const treino: Treino = {
         nome: nome,
         imagemURL: dados.treino.imagemURL,

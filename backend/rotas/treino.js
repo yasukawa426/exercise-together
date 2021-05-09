@@ -7,7 +7,9 @@ const multer = require("multer");
 const armazenamento = multer.diskStorage({
   //requisiçao, arquivo extraido e uma funçao que indica um erro ou devolve o diretorio que as //fotos vao ficar
   destination: (req, file, callback) => {
-    let e = MIME_TYPE_EXTENSAO_MAPA[file.mimetype] ? null : new Error("Mime Type Inválido");
+    let e = MIME_TYPE_EXTENSAO_MAPA[file.mimetype]
+      ? null
+      : new Error("Mime Type Inválido");
     callback(e, "backend/imagens");
   },
   filename: (req, file, callback) => {
@@ -48,16 +50,16 @@ router.get("", (req, res, next) => {
 });
 
 //adiciona um treino na tabela treinos
-router.post(
-  "",
-  multer({ storage: armazenamento }).single("imagem"),
-  (req, res, next) => {
+router.post("", multer({ storage: armazenamento }).single("imagem"), (req, res, next) => {
+    console.log("Recebi o post!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     body = req.body;
     const imagemURL = `${req.protocol}://${req.get("host")}`;
+    //transofrmando os exercicios recebido como string em JSON array
+    vetorExercicios = JSON.parse(body.exercicios)
     const treino = new Treino({
       nome: body.nome,
       imagemURL: `${imagemURL}/imagens/${req.file.filename}`,
-      exercicios: body.exercicios,
+      exercicios: vetorExercicios
     });
     //salva no banco
     treino.save().then((treinoInserido) => {

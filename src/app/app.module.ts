@@ -20,7 +20,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { TreinoService } from './Treinos/treino.service'
 import { HttpClientModule } from '@angular/common/http'
-import { ExercicioService } from './Treinos/Exercicios/exercicio.service'
+import { ExercicioService } from './Treinos/Exercicios/exercicio.service';
+import { ChartsModule } from 'ng2-charts';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 
@@ -31,7 +33,8 @@ import { ExercicioService } from './Treinos/Exercicios/exercicio.service'
     ListaTreinosComponent,
     TreinoComponent,
     DialogoDescricaoExercicioComponent,
-    TreinoInserirComponent
+    TreinoInserirComponent,
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { ExercicioService } from './Treinos/Exercicios/exercicio.service'
     HttpClientModule,
     ReactiveFormsModule,
     MatInputModule,
+    ChartsModule,
   ],
   providers: [TreinoService,ExercicioService],
   bootstrap: [AppComponent]

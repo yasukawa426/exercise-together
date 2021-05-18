@@ -13,7 +13,7 @@ export class UsuarioService {
   // }
 
   //pega o usuario q tem esse email especifico.
-  getUsuariosEmail(email: string) {
+  getUsuarioEmail(email: string) {
     return this.httpClient.get<{
       peso: [];
       treinos: [];

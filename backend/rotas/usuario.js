@@ -16,7 +16,7 @@ router.get("", (req, res, next) => {
 
 //pega o usuario com esse email
 router.get("/:email", (req, res) => {
-  usuarios = Usuario.find({ email: req.params.email }).then((documents) => {
+  usuarios = Usuario.findOne({ email: req.params.email }).then((documents) => {
     if (documents) {
       res.status(200).json(documents);
     } else {

@@ -1,19 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { Usuario } from '../usuario.model';
+import { UsuarioService } from '../usuario.service';
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+  styleUrls: ['./perfil.component.css'],
 })
 export class PerfilComponent implements OnInit {
+  usuario: Usuario;
 
-  public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Peso(kg)' },
-    { data: [20, 30, 40, 10, 25, 88, 40], label: 'Biceps(cm)'}
+  public lineChartData: ChartDataSets[] = [];
+  public lineChartLabels: Label[] = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
   ];
-  public lineChartLabels: Label[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'];
   public lineChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -27,9 +35,21 @@ export class PerfilComponent implements OnInit {
   public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
 
-  constructor() { }
+  constructor(public usuarioService: UsuarioService) {}
 
   ngOnInit() {
+    this.usuarioService
+      .getUsuarioEmail('usuario@usuario.com')
+      .subscribe((dadosUsuario) => {
+        console.log('O q recebi', dadosUsuario);
+        this.usuario = {
+          nome: dadosUsuario.nome,
+          email: dadosUsuario.email,
+          peso: dadosUsuario.peso,
+          treinos: dadosUsuario.treinos,
+        };
+        console.log(this.usuario);
+        this.lineChartData = [{ data: this.usuario.peso, label: 'Peso(kg)' }];
+      });
   }
-
 }

@@ -22,7 +22,7 @@ import { TreinoService } from './Treinos/treino.service'
 import { HttpClientModule } from '@angular/common/http'
 import { ExercicioService } from './Treinos/Exercicios/exercicio.service';
 import { ChartsModule } from 'ng2-charts';
-import { PerfilComponent } from './perfil/perfil.component';
+import { PerfilComponent } from './usuario/perfil/perfil.component';
 
 
 

@@ -3,13 +3,14 @@ import { Subject } from 'rxjs';
 import { Exercicio } from './Exercicios/exercicio.model';
 import { Treino } from './treino.model';
 import { HttpClient } from '@angular/common/http'
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 export class TreinoService {
   private treinos: Treino[] = [];
   private listaTreinosAtualizada = new Subject<Treino[]>();
 
-  constructor (private httpClient: HttpClient){
+  constructor (private httpClient: HttpClient, private router: Router){
 
   }
 
@@ -41,6 +42,8 @@ export class TreinoService {
       this.treinos.push(treino)
       //avisa a quem ta inscrito q algo aconteceu. Assim os observadores podem reagir
     this.listaTreinosAtualizada.next([...this.treinos])
+    this.router.navigate([""]);
+
     })
   }
 

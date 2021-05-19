@@ -12,7 +12,9 @@ import { UsuarioService } from '../usuario.service';
 export class PerfilComponent implements OnInit {
   usuario: Usuario;
 
-  public lineChartData: ChartDataSets[] = [];
+  public lineChartData: ChartDataSets[] = [
+    {data: null, label: "git status -s"}
+  ];
   public lineChartLabels: Label[] = [
     'Janeiro',
     'Fevereiro',

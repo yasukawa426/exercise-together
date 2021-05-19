@@ -20,3 +20,10 @@ input[type="file"] {
 .imagem-preview img {
   height: 100%;
 }
+
+mat-card{
+  /* display: inline-block; */
+  /* text-align: center; */
+  border:1px solid black;
+  margin-bottom: 10px;
+}

@@ -16,13 +16,14 @@ import { TreinoComponent } from './Treinos/treino/treino.component';
 import { DialogoDescricaoExercicioComponent } from './Treinos/Exercicios/dialogo-descricao-exercicio/dialogo-descricao-exercicio.component';
 import { TreinoInserirComponent } from './Treinos/treino-inserir/treino-inserir.component';
 import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { TreinoService } from './Treinos/treino.service'
 import { HttpClientModule } from '@angular/common/http'
 import { ExercicioService } from './Treinos/Exercicios/exercicio.service';
 import { ChartsModule } from 'ng2-charts';
 import { PerfilComponent } from './usuario/perfil/perfil.component';
+
 
 
 
@@ -50,6 +51,7 @@ import { PerfilComponent } from './usuario/perfil/perfil.component';
     ReactiveFormsModule,
     MatInputModule,
     ChartsModule,
+    FormsModule
   ],
   providers: [TreinoService,ExercicioService],
   bootstrap: [AppComponent]

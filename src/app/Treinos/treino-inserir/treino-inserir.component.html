@@ -59,15 +59,18 @@
           type="number"
           matInput
           placeholder="repeticoes"
-          [(value)]="exercicioSelecionado[i].repeticao"
+          [(ngModel)]="exercicioSelecionado[i].repeticao"
+          [ngModelOptions]="{standalone: true}"
         />
       </mat-form-field>
       <mat-form-field>
         <input
+          class="form-control"
           type="number"
           matInput
           placeholder="series"
-          [(value)]="exercicioSelecionado[i].series"
+          [(ngModel)]="exercicioSelecionado[i].series"
+          [ngModelOptions]="{standalone: true}"
         />
       </mat-form-field>
       <p>Index: {{ i }}</p>

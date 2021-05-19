@@ -1,11 +1,31 @@
-<div style="display: block;">
-  <canvas baseChart width="200" height="100"
+<div style="display: block">
+  <mat-card>
+    <p>
+      <span class="material-icons"> person </span>
+      {{ usuario.nome }}
+    </p>
+    <hr />
+    <p>
+      <span class="material-icons"> contact_mail </span>
+      {{ usuario.email }}
+    </p>
+    <hr />
+    <p>
+      <span class="material-icons"> monitor_weight </span
+      >{{ usuario.peso[0] }} kg
+    </p>
+  </mat-card>
+  <canvas
+    baseChart
+    width="200"
+    height="100"
     [datasets]="lineChartData"
     [labels]="lineChartLabels"
     [options]="lineChartOptions"
     [colors]="lineChartColors"
     [legend]="lineChartLegend"
     [chartType]="lineChartType"
-    [plugins]="lineChartPlugins">
+    [plugins]="lineChartPlugins"
+  >
   </canvas>
 </div>

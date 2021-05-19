@@ -26,12 +26,11 @@ export class TreinoInserirComponent implements OnInit, OnDestroy {
   nome: any;
   form: FormGroup;
   previewImagem: string;
-  exercicioSelecionado: Exercicio[] = [];
+  exercicioSelecionado: Exercicio[] = null;
 
   constructor(
     public exercicioService: ExercicioService,
-    public treinoService: TreinoService,
-    private formBuilder: FormBuilder
+    public treinoService: TreinoService
   ) {}
   ngOnInit(): void {
     this.exercicioService.getExercicios();

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Treino } from '../Treinos/treino.model';
 import { Usuario } from './usuario.model';
 
 @Injectable({ providedIn: 'root' })
@@ -15,8 +16,8 @@ export class UsuarioService {
   //pega o usuario q tem esse email especifico.
   getUsuarioEmail(email: string) {
     return this.httpClient.get<{
-      peso: [];
-      treinos: [];
+      peso: {peso:number, data:string}[];
+      treinos: Treino [];
       _id: string;
       nome: string;
       email: string;

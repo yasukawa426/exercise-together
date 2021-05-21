@@ -11,19 +11,14 @@ import { UsuarioService } from '../usuario.service';
 })
 export class PerfilComponent implements OnInit {
   usuario: Usuario;
-
+  //esse vetor vai conter tds os pesos (em kg)
+  arrayPeso = [];
+  arrayData = [];
+  ultimoPeso: number;
   public lineChartData: ChartDataSets[] = [
-    {data: null, label: "git status -s"}
+    { data: null, label: 'git status -s' },
   ];
-  public lineChartLabels: Label[] = [
-    'Janeiro',
-    'Fevereiro',
-    'Março',
-    'Abril',
-    'Maio',
-    'Junho',
-    'Julho',
-  ];
+  public lineChartLabels: Label[] = [];
   public lineChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -51,7 +46,21 @@ export class PerfilComponent implements OnInit {
           treinos: dadosUsuario.treinos,
         };
         console.log(this.usuario);
-        this.lineChartData = [{ data: this.usuario.peso, label: 'Peso(kg)' }];
+        //vai pegar tds os pesos do json ({peso:number, data:string}) e colocar dentro de um vetor de peso (number)
+        this.usuario.peso.forEach((peso) => {
+          this.arrayPeso.push(peso.peso);
+          this.arrayData.push(peso.data);
+        });
+        this.lineChartData = [{ data: this.arrayPeso, label: 'Peso(kg)' }];
+        this.lineChartLabels = this.arrayData;
+        //ultimo peso = ao ultimo peso do arrayPeso
+        this.ultimoPeso = this.arrayPeso[this.arrayPeso.length-1]
       });
+
+    let data = new Date();
+    let dia = String(data.getDate()).padStart(2, '0');
+    let mes = String(data.getMonth() + 1).padStart(2, '0');
+    let dataFormatada: string = dia + '/' + mes;
+    console.log('Data: ', dataFormatada);
   }
 }

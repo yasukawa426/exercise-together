@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import {
+  MatBottomSheet,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { Usuario } from '../usuario.model';
 import { UsuarioService } from '../usuario.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-perfil',
@@ -33,7 +37,10 @@ export class PerfilComponent implements OnInit {
   public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
 
-  constructor(public usuarioService: UsuarioService, private _bottomSheet: MatBottomSheet) {}
+  constructor(
+    public usuarioService: UsuarioService,
+    private _bottomSheet: MatBottomSheet
+  ) {}
 
   ngOnInit() {
     this.usuarioService
@@ -55,18 +62,14 @@ export class PerfilComponent implements OnInit {
         this.lineChartData = [{ data: this.arrayPeso, label: 'Peso(kg)' }];
         this.lineChartLabels = this.arrayData;
         //ultimo peso = ao ultimo peso do arrayPeso
-        this.ultimoPeso = this.arrayPeso[this.arrayPeso.length-1]
+        this.ultimoPeso = this.arrayPeso[this.arrayPeso.length - 1];
       });
 
-    let data = new Date();
-    let dia = String(data.getDate()).padStart(2, '0');
-    let mes = String(data.getMonth() + 1).padStart(2, '0');
-    let dataFormatada: string = dia + '/' + mes;
-    console.log('Data: ', dataFormatada);
+    
   }
 
-  abrirAtualizarPeso(){
-    this._bottomSheet.open(BottomSheet)
+  abrirAtualizarPeso() {
+    this._bottomSheet.open(BottomSheet);
   }
 }
 
@@ -74,6 +77,33 @@ export class PerfilComponent implements OnInit {
   selector: 'app-bottom-sheet',
   templateUrl: './bottom-sheet.component.html',
   styleUrls: ['./bottom-sheet.component.css'],
-}) export class BottomSheet{
+})
+export class BottomSheet {
+  constructor(
+    private _bottomSheetRef: MatBottomSheetRef<BottomSheet>,
+    private _snackBar: MatSnackBar,
+    public usuarioService: UsuarioService
+  ) {}
+  pesoAtual: number;
 
+  atualizarPeso() {
+    
+
+    let data = new Date();
+    let dia = String(data.getDate()).padStart(2, '0');
+    let mes = String(data.getMonth() + 1).padStart(2, '0');
+    let dataFormatada: string = dia + '/' + mes;
+    console.log('Data: ', dataFormatada);
+    const pesoData = {
+      peso: this.pesoAtual,
+      data: dataFormatada
+    }
+    this.usuarioService.atualizarPeso("usuario@usuario.com", pesoData)
+
+    this._bottomSheetRef.dismiss();
+    this._snackBar.open('Peso atualizado!', 'X', {
+      duration: 3000,
+    });
+    
+  }
 }

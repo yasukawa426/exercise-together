@@ -25,6 +25,7 @@ import { ExercicioService } from './Treinos/Exercicios/exercicio.service';
 import { ChartsModule } from 'ng2-charts';
 import { BottomSheet, PerfilComponent } from './usuario/perfil/perfil.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 
 
@@ -55,7 +56,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
     MatInputModule,
     ChartsModule,
     FormsModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatSnackBarModule
   ],
   providers: [TreinoService,ExercicioService],
   bootstrap: [AppComponent]

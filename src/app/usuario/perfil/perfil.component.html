@@ -15,8 +15,11 @@
       <span class="material-icons"> monitor_weight </span
       >{{ ultimoPeso }} kg
 
-      <button class="material-icons add" (click)="abrirAtualizarPeso()">
-        add
+      <button  mat-icon-button (click)="abrirAtualizarPeso()" aria-label="add">
+        <span class="material-icons add">
+          add
+        </span>
+        
       </button>
     </p>
   </mat-card>

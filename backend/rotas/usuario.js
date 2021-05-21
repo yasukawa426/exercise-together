@@ -16,7 +16,7 @@ router.get("", (req, res, next) => {
 
 //pega o usuario com esse email
 router.get("/:email", (req, res) => {
-  usuarios = Usuario.findOne({ email: req.params.email }).then((documents) => {
+  usuario = Usuario.findOne({ email: req.params.email }).then((documents) => {
     if (documents) {
       res.status(200).json(documents);
     } else {
@@ -24,6 +24,19 @@ router.get("/:email", (req, res) => {
     }
   });
 });
+
+//atualzia o peso do usuario com esse email
+router.put("/:email"), (req, res) =>{
+  console.log("Put recebido", req.body);
+  usuario = Usuario.findOneAndUpdate({email: req.params.email }, {$push: {peso: req.body.peso}}, {new: true}).then((documents) => {
+    if (documents.peso === req.body.peso){
+      res.status(201).json({mensagem:"Atualizado com sucesso", usuario: documents})
+    }
+    else{
+      res.status(502).json({mensagem:"Não atualizado"})
+    }
+  })
+}
 
 //exportando
 module.exports = router;

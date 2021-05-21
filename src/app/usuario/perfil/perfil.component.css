@@ -7,3 +7,8 @@ mat-cad{
   display: inline-flex ;
   vertical-align: middle ; 
 }
+.add{
+  color: #448899;
+  margin-left:49%;
+  /* border:none; */
+}

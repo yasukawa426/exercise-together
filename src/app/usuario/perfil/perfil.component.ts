@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { Usuario } from '../usuario.model';
@@ -25,14 +26,14 @@ export class PerfilComponent implements OnInit {
   public lineChartColors: Color[] = [
     {
       borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      backgroundColor: 'rgba(0,255,0,0.3)',
     },
   ];
   public lineChartLegend = true;
   public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
 
-  constructor(public usuarioService: UsuarioService) {}
+  constructor(public usuarioService: UsuarioService, private _bottomSheet: MatBottomSheet) {}
 
   ngOnInit() {
     this.usuarioService
@@ -63,4 +64,16 @@ export class PerfilComponent implements OnInit {
     let dataFormatada: string = dia + '/' + mes;
     console.log('Data: ', dataFormatada);
   }
+
+  abrirAtualizarPeso(){
+    this._bottomSheet.open(BottomSheet)
+  }
+}
+
+@Component({
+  selector: 'app-bottom-sheet',
+  templateUrl: './bottom-sheet.component.html',
+  styleUrls: ['./bottom-sheet.component.css'],
+}) export class BottomSheet{
+
 }

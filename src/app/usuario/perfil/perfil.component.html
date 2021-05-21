@@ -10,9 +10,14 @@
       {{ usuario.email }}
     </p>
     <hr />
+    <div></div>
     <p>
       <span class="material-icons"> monitor_weight </span
       >{{ ultimoPeso }} kg
+
+      <button class="material-icons add" (click)="abrirAtualizarPeso()">
+        add
+      </button>
     </p>
   </mat-card>
   <canvas
@@ -29,3 +34,4 @@
   >
   </canvas>
 </div>
+

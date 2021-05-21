@@ -20,7 +20,6 @@ export class AppComponent {
 
   handleRouteChange = () => {
     let url = this.router.url
-    console.log('URL', url);
 
     if (url.includes("/criar")){
       this.titulo = "Adicionar Treino"

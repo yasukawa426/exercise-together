@@ -5,7 +5,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule} from '@angular/material/dialog'
+import { MatDialogModule} from '@angular/material/dialog';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +23,8 @@ import { TreinoService } from './Treinos/treino.service'
 import { HttpClientModule } from '@angular/common/http'
 import { ExercicioService } from './Treinos/Exercicios/exercicio.service';
 import { ChartsModule } from 'ng2-charts';
-import { PerfilComponent } from './usuario/perfil/perfil.component';
+import { BottomSheet, PerfilComponent } from './usuario/perfil/perfil.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 
 
 
@@ -36,6 +38,7 @@ import { PerfilComponent } from './usuario/perfil/perfil.component';
     DialogoDescricaoExercicioComponent,
     TreinoInserirComponent,
     PerfilComponent,
+    BottomSheet
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { PerfilComponent } from './usuario/perfil/perfil.component';
     ReactiveFormsModule,
     MatInputModule,
     ChartsModule,
-    FormsModule
+    FormsModule,
+    MatBottomSheetModule
   ],
   providers: [TreinoService,ExercicioService],
   bootstrap: [AppComponent]

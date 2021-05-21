@@ -69,7 +69,14 @@ export class PerfilComponent implements OnInit {
   }
 
   abrirAtualizarPeso() {
-    this._bottomSheet.open(BottomSheet);
+    this._bottomSheet.open(BottomSheet).afterDismissed().subscribe((dados) =>{
+      //quando o bottomSheet fechar, isso acontece
+      this.ultimoPeso = dados.pesoAtualizado
+      this.arrayPeso.push(this.ultimoPeso)
+      this.arrayData.push(dados.data)
+      this.lineChartData = [{ data: this.arrayPeso, label: 'Peso(kg)' }];
+      this.lineChartLabels = this.arrayData;
+    })
   }
 }
 
@@ -100,7 +107,7 @@ export class BottomSheet {
     }
     this.usuarioService.atualizarPeso("usuario@usuario.com", pesoData)
 
-    this._bottomSheetRef.dismiss();
+    this._bottomSheetRef.dismiss({pesoAtualizado:this.pesoAtual, data: dataFormatada});
     this._snackBar.open('Peso atualizado!', 'X', {
       duration: 3000,
     });

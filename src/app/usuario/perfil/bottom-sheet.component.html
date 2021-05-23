@@ -3,7 +3,8 @@
   <br>
   <mat-form-field>
     <mat-label>Peso atual</mat-label>
-    <input matInput type="number" [(ngModel)]="pesoAtual">
+    <input matInput type="number" [(ngModel)]="pesoAtual" placeholder={{data}}>
+    <mat-hint align="start"><strong>Digite o seu peso em kg</strong></mat-hint>
   </mat-form-field>
   <button mat-raised-button color="primary" style="margin-left: 5px;" (click)="atualizarPeso()">Atualizar</button>
 </div>

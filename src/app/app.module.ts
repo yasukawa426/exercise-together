@@ -5,7 +5,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule} from '@angular/material/dialog'
+import { MatDialogModule} from '@angular/material/dialog';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,11 +17,16 @@ import { TreinoComponent } from './Treinos/treino/treino.component';
 import { DialogoDescricaoExercicioComponent } from './Treinos/Exercicios/dialogo-descricao-exercicio/dialogo-descricao-exercicio.component';
 import { TreinoInserirComponent } from './Treinos/treino-inserir/treino-inserir.component';
 import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { TreinoService } from './Treinos/treino.service'
 import { HttpClientModule } from '@angular/common/http'
-import { ExercicioService } from './Treinos/Exercicios/exercicio.service'
+import { ExercicioService } from './Treinos/Exercicios/exercicio.service';
+import { ChartsModule } from 'ng2-charts';
+import { BottomSheet, PerfilComponent } from './usuario/perfil/perfil.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
+
 
 
 
@@ -31,7 +37,9 @@ import { ExercicioService } from './Treinos/Exercicios/exercicio.service'
     ListaTreinosComponent,
     TreinoComponent,
     DialogoDescricaoExercicioComponent,
-    TreinoInserirComponent
+    TreinoInserirComponent,
+    PerfilComponent,
+    BottomSheet
   ],
   imports: [
     BrowserModule,
@@ -46,6 +54,10 @@ import { ExercicioService } from './Treinos/Exercicios/exercicio.service'
     HttpClientModule,
     ReactiveFormsModule,
     MatInputModule,
+    ChartsModule,
+    FormsModule,
+    MatBottomSheetModule,
+    MatSnackBarModule
   ],
   providers: [TreinoService,ExercicioService],
   bootstrap: [AppComponent]

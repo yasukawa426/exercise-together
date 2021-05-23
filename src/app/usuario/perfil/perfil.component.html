@@ -1,0 +1,40 @@
+<div style="display: block">
+  <mat-card>
+    <p>
+      <span class="material-icons"> person </span>
+      {{ usuario.nome }}
+    </p>
+    <hr />
+    <p>
+      <span class="material-icons"> contact_mail </span>
+      {{ usuario.email }}
+    </p>
+    <hr />
+    <div></div>
+    <p>
+      <span class="material-icons"> monitor_weight </span
+      >{{ ultimoPeso }} kg
+
+      <button  mat-icon-button (click)="abrirAtualizarPeso()" aria-label="add">
+        <span class="material-icons add">
+          add
+        </span>
+        
+      </button>
+    </p>
+  </mat-card>
+  <canvas
+    baseChart
+    width="200"
+    height="100"
+    [datasets]="lineChartData"
+    [labels]="lineChartLabels"
+    [options]="lineChartOptions"
+    [colors]="lineChartColors"
+    [legend]="lineChartLegend"
+    [chartType]="lineChartType"
+    [plugins]="lineChartPlugins"
+  >
+  </canvas>
+</div>
+

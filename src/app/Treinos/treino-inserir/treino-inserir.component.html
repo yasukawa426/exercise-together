@@ -1,23 +1,80 @@
-<form [formGroup]= "form" (submit)="onAdicionarTreino()" >
-
+<form [formGroup]="form" (submit)="onAdicionarTreino()">
   <mat-form-field>
-    <input type="text" matInput placeholder="nome do treino" formControlName="nome"  />
+    <input
+      type="text"
+      matInput
+      placeholder="nome do treino"
+      formControlName="nome"
+    />
   </mat-form-field>
 
   <div>
-    <button mat-stroked-button type="button" (click)= "selecionaArquivo.click()" > Selecionar Imagem </button>
-    <input type="file" (change)="onImagemSelecionada($event)" #selecionaArquivo >
+    <button mat-stroked-button type="button" (click)="selecionaArquivo.click()">
+      Selecionar Imagem
+    </button>
+    <input
+      type="file"
+      (change)="onImagemSelecionada($event)"
+      #selecionaArquivo
+    />
   </div>
-  <div class= "imagem-preview">
-    <img [src]= "previewImagem" *ngIf= "previewImagem && previewImagem !=='' && form.get('imagem').valid " [alt]= "form.value.nome">
+  <div class="imagem-preview">
+    <img
+      [src]="previewImagem"
+      *ngIf="previewImagem && previewImagem !== '' && form.get('imagem').valid"
+      [alt]="form.value.nome"
+    />
   </div>
 
   <mat-form-field appearance="fill">
     <mat-label>Selecione os Exercícios</mat-label>
-    <mat-select formControlName="exercicios" multiple formControlName="exercicios" >
-      <mat-option *ngFor="let exercicio of listaDeExercicios" [value]="exercicio">{{exercicio.nome}}</mat-option>
+    <mat-select
+      (selectionChange)="escolhido($event)"
+      formControlName="exercicios"
+      multiple
+      formControlName="exercicios"
+    >
+      <mat-option
+        *ngFor="let exercicio of listaDeExercicios"
+        [value]="exercicio"
+        >{{ exercicio.nome }}</mat-option
+      >
     </mat-select>
   </mat-form-field>
 
-  <button color= "primary" mat-raised-button>Inserir novo treino</button>
+  <p *ngIf="exercicioSelecionado !== null">
+    Exercicios Selecionados:
+    <span *ngFor="let exercicio of exercicioSelecionado">
+      {{ exercicio.nome }},
+    </span>
+  </p>
+
+  <div *ngIf="exercicioSelecionado !== null">
+    <mat-card *ngFor="let exercicio of exercicioSelecionado; let i = index">
+      <mat-card-header>
+        <mat-card-title>{{ exercicio.nome }} </mat-card-title>
+      </mat-card-header>
+      <mat-form-field>
+        <input
+          type="number"
+          matInput
+          placeholder="repeticoes"
+          [(ngModel)]="exercicioSelecionado[i].repeticao"
+          [ngModelOptions]="{standalone: true}"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          class="form-control"
+          type="number"
+          matInput
+          placeholder="series"
+          [(ngModel)]="exercicioSelecionado[i].series"
+          [ngModelOptions]="{standalone: true}"
+        />
+      </mat-form-field>
+    </mat-card>
+  </div>
+
+  <button color="primary" mat-raised-button>Inserir novo treino</button>
 </form>

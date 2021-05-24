@@ -1,6 +1,22 @@
-<!-- ira gerar um matcard pra cada treino na lista de treinos -->
 <div class="corpo">
-  <mat-card *ngFor="let treino of listaTreinos">
+  <!-- matcard para os treinos padroes -->
+  <mat-card *ngFor="let treino of listaTreinosPadroes">
+    <mat-card-header>
+      <mat-card-title>{{ treino.nome }}</mat-card-title>
+    </mat-card-header>
+
+    <img mat-card-image src="{{ treino.imagemURL }}" alt="Capa do Treino" />
+    <a
+      routerLink="/treino"
+      mat-raised-button
+      (click)="treinar(treino.nome, treino.exercicios)"
+      color="primary"
+      >Treinar</a
+    >
+  </mat-card>
+
+  <!-- mat-card para os treinos do usuario -->
+  <mat-card *ngFor="let treino of listaTreinosUsuario">
     <mat-card-header>
       <mat-card-title>{{ treino.nome }}</mat-card-title>
     </mat-card-header>
@@ -18,6 +34,7 @@
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <span class="material-icons">more_vert</span>
       </button>
+      <!-- menu q aparece ao clicar no ... -->
       <mat-menu #menu="matMenu">
         <button mat-menu-item class="menu-item">
           <mat-icon>change_circle</mat-icon>
@@ -30,8 +47,8 @@
         </button>
       </mat-menu>
     </mat-card-actions>
-    <!-- menu q aparece ao clicar no ... -->
   </mat-card>
+
   <!-- mat-card de adicionar treinos -->
   <mat-card class="criar">
     <mat-card-header>

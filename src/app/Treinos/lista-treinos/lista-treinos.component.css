@@ -16,10 +16,21 @@ mat-card-title{
   text-align: center;
 }
 
+.flex {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 img{
   height: 250px;
   border-top: inherit;
   border-bottom: inherit;
   object-fit: cover;
   /* border-radius: 5%; */
+}
+
+.menu-item{
+  /* margin: 0;
+  padding: 0; */
 }

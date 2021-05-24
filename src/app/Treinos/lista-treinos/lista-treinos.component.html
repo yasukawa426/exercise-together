@@ -6,14 +6,31 @@
     </mat-card-header>
 
     <img mat-card-image src="{{ treino.imagemURL }}" alt="Capa do Treino" />
+    <mat-card-actions align="end" class="flex">
+      <div class="espaçador"></div>
+      <a
+        routerLink="/treino"
+        mat-raised-button
+        (click)="treinar(treino.nome, treino.exercicios)"
+        color="primary"
+        >Treinar</a
+      >
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <span class="material-icons">more_vert</span>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item class="menu-item">
+          <mat-icon>change_circle</mat-icon>
+          <span style="color: rgb(206, 209, 20)">Atualizar</span>
+        </button>
 
-    <a
-      routerLink="/treino"
-      mat-raised-button
-      (click)="treinar(treino.nome, treino.exercicios)"
-      color="primary"
-      >Treinar</a
-    >
+        <button mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span style="color: red">Deletar</span>
+        </button>
+      </mat-menu>
+    </mat-card-actions>
+    <!-- menu q aparece ao clicar no ... -->
   </mat-card>
   <!-- mat-card de adicionar treinos -->
   <mat-card class="criar">
@@ -26,7 +43,8 @@
       src="https://raw.githubusercontent.com/yasukawa426/exercise-together/master/src/app/img/add.png"
       alt="+"
     />
-    <button routerLink="/criar" mat-raised-button color="primary">Criar Novo Treino</button>
+    <button routerLink="/criar" mat-raised-button color="primary">
+      Criar Novo Treino
+    </button>
   </mat-card>
 </div>
-

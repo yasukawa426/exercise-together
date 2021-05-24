@@ -81,3 +81,4 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
     this.treinosSubscription.unsubscribe();
   }
 }
+

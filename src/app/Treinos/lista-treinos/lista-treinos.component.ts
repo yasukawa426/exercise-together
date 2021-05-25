@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Inject } from '@angular/core';
 import { Exercicio } from '../Exercicios/exercicio.model';
 import { Treino } from '../treino.model';
 import { TreinoService } from '../treino.service';
 import { Subscription, Observable } from 'rxjs';
 import { UsuarioService } from 'src/app/usuario/usuario.service';
 import { Usuario } from 'src/app/usuario/usuario.model';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-lista-treinos',
@@ -12,12 +14,18 @@ import { Usuario } from 'src/app/usuario/usuario.model';
   styleUrls: ['./lista-treinos.component.css'],
 })
 export class ListaTreinosComponent implements OnInit, OnDestroy {
-  constructor(public treinoService: TreinoService, public usuarioService: UsuarioService) {}
+  constructor(
+    public treinoService: TreinoService,
+    public usuarioService: UsuarioService,
+    public dialog: MatDialog
+  ) {}
 
   listaTreinosPadroes: Treino[] = [];
   listaTreinosUsuario: Treino[] = [];
   usuario: Usuario;
   private treinosSubscription: Subscription;
+  @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
+
   //gif alternativo de flexao https://upload.wikimedia.org/wikipedia/commons/b/b8/Liegestuetz02_ani_fcm.gif
 
   treinar(nome: any, exercicios: any) {
@@ -40,7 +48,6 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
     localStorage.setItem('numeroExercicios', numeroExercicios.toString());
   }
 
-  
   ngOnInit(): void {
     this.treinoService.getTreinos();
     //ta pegando a listaTreinosAtualizada como observable e se inscrevendo nela. Td vez q essa lista é atualizada (td vez q chega naquele .next()), atualiza a lista local q foi inicializada com o metodo .getTreinos()
@@ -67,7 +74,6 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
         this.usuario.treinos.forEach((treino) => {
           this.listaTreinosUsuario.push(treino);
         });
-        
       });
   }
 
@@ -75,5 +81,31 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
     //quando lista-treino é fechado, se desinscreve da listaAtuliaza para imperdir um vazamento de memoria
     this.treinosSubscription.unsubscribe();
   }
+
+  deletar(i: number) {
+    const nome = this.listaTreinosUsuario[i].nome
+    const dialogRef = this.dialog.open(DeletarDialogComponent,
+      {
+      restoreFocus: false,
+      data: nome
+    });
+    dialogRef.afterClosed().subscribe((resultado) => {
+      if (resultado === "deletar"){
+        console.log(`Deletando treino ${i}, ${this.listaTreinosUsuario[i].nome}`);
+        //tira o treino do vetor
+        this.listaTreinosUsuario.splice(i,1)
+        //atualizar os treinos do usuario com esse vetor atualizado
+        this.usuario.treinos = this.listaTreinosUsuario
+        //atualiza o usuario no banco
+      }
+    })
+  }
 }
 
+@Component({
+  selector: 'deletar-dialog',
+  templateUrl: 'deletar-dialog.component.html',
+})
+export class DeletarDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string) {}
+}

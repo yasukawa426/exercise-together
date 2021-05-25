@@ -97,6 +97,7 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
         //atualizar os treinos do usuario com esse vetor atualizado
         this.usuario.treinos = this.listaTreinosUsuario
         //atualiza o usuario no banco
+        this.usuarioService.atualizarUsuario("usuario@usuario.com", this.usuario)
       }
     })
   }

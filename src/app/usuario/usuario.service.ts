@@ -30,4 +30,11 @@ export class UsuarioService {
 
     })
   }
+
+  //atualiza td do usuario com esse email
+  atualizarUsuario(email: string, usuario: Usuario){
+    this.httpClient.put<{mensagem:string, usuario: Usuario}>(`http://localhost:3000/api/usuarios/${email}`, usuario).subscribe((dados) =>{
+      
+    })
+  }
 }

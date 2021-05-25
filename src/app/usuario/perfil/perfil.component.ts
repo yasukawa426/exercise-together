@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   MatBottomSheet,
   MatBottomSheetRef,
+  MAT_BOTTOM_SHEET_DATA,
 } from '@angular/material/bottom-sheet';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
@@ -65,11 +66,13 @@ export class PerfilComponent implements OnInit {
         this.ultimoPeso = this.arrayPeso[this.arrayPeso.length - 1];
       });
 
-    
+
   }
 
   abrirAtualizarPeso() {
-    this._bottomSheet.open(BottomSheet).afterDismissed().subscribe((dados) =>{
+    this._bottomSheet.open(BottomSheet, {
+      data: this.ultimoPeso
+    }).afterDismissed().subscribe((dados) =>{
       //quando o bottomSheet fechar, isso acontece
       this.ultimoPeso = dados.pesoAtualizado
       this.arrayPeso.push(this.ultimoPeso)
@@ -89,12 +92,12 @@ export class BottomSheet {
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<BottomSheet>,
     private _snackBar: MatSnackBar,
-    public usuarioService: UsuarioService
+    public usuarioService: UsuarioService,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: number
   ) {}
   pesoAtual: number;
-
   atualizarPeso() {
-    
+
 
     let data = new Date();
     let dia = String(data.getDate()).padStart(2, '0');
@@ -111,6 +114,6 @@ export class BottomSheet {
     this._snackBar.open('Peso atualizado!', 'X', {
       duration: 3000,
     });
-    
+
   }
 }

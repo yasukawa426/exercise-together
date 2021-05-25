@@ -1,14 +1,24 @@
 mat-cad{
   margin-bottom: 10px;
-  
+
 }
+
+button{
+  padding: 0;
+  margin: 0;
+}
+
 .material-icons{
   color: #93e9be;
   display: inline-flex ;
-  vertical-align: middle ; 
+  vertical-align: middle ;
 }
 .add{
   color: #448899;
   margin-left:49%;
   /* border:none; */
+}
+
+.separador{
+  flex:1;
 }

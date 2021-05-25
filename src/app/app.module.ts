@@ -26,6 +26,8 @@ import { ChartsModule } from 'ng2-charts';
 import { BottomSheet, PerfilComponent } from './usuario/perfil/perfil.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import {MatMenuModule} from '@angular/material/menu'
+import {MatIconModule} from '@angular/material/icon';
 
 
 
@@ -57,7 +59,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
     ChartsModule,
     FormsModule,
     MatBottomSheetModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule,
+    MatIconModule,
   ],
   providers: [TreinoService,ExercicioService],
   bootstrap: [AppComponent]

@@ -3,6 +3,8 @@ import { Exercicio } from '../Exercicios/exercicio.model';
 import { Treino } from '../treino.model';
 import { TreinoService } from '../treino.service';
 import { Subscription, Observable } from 'rxjs';
+import { UsuarioService } from 'src/app/usuario/usuario.service';
+import { Usuario } from 'src/app/usuario/usuario.model';
 
 @Component({
   selector: 'app-lista-treinos',
@@ -10,9 +12,11 @@ import { Subscription, Observable } from 'rxjs';
   styleUrls: ['./lista-treinos.component.css'],
 })
 export class ListaTreinosComponent implements OnInit, OnDestroy {
-  constructor(public treinoService: TreinoService) {}
+  constructor(public treinoService: TreinoService, public usuarioService: UsuarioService) {}
 
-  listaTreinos: Treino[] = [];
+  listaTreinosPadroes: Treino[] = [];
+  listaTreinosUsuario: Treino[] = [];
+  usuario: Usuario;
   private treinosSubscription: Subscription;
   //gif alternativo de flexao https://upload.wikimedia.org/wikipedia/commons/b/b8/Liegestuetz02_ani_fcm.gif
 
@@ -36,43 +40,34 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
     localStorage.setItem('numeroExercicios', numeroExercicios.toString());
   }
 
-  //esse metodo só testa se ta adicionando no banco
-  teste() {
-    // const treino: Treino = {
-    //   nome: 'Treino dRoberto Calros',
-    //   imagemURL:
-    //     'https://www.olimpiadatododia.com.br/wp-content/uploads/2020/06/Michael-Phelps-recordista-de-medalhas-de-ouro-numa-u%CC%81nica-edic%CC%A7a%CC%83o-dos-Jogos-Oli%CC%81mpicos-Pequim-2008-1280x720.jpg',
-    //   exercicios: [
-    //     {
-    //       nome: 'Flexao',
-    //       repeticao: 2,
-    //       series: 1,
-    //       imagem:
-    //         'https://image.shutterstock.com/shutterstock/photos/454190938/display_1500/stock-vector-step-instruction-for-push-up-of-woman-cartoon-illustration-about-work-out-454190938.jpg',
-    //       descricao:
-    //         'Abaixe o corpo de forma uniforme até que o peito fique a uma mão travessa do solo, sem lhe tocar e de seguida regresse a posição inicial',
-    //     },
-    //     {
-    //       nome: 'Cambalhota',
-    //       repeticao: 2,
-    //       series: 1,
-    //       imagem:
-    //         'https://image.shutterstock.com/shutterstock/photos/454190938/display_1500/stock-vector-step-instruction-for-push-up-of-woman-cartoon-illustration-about-work-out-454190938.jpg',
-    //       descricao:
-    //         'Abaixe o corpo de forma uniforme até que o peito fique a uma mão travessa do solo, sem lhe tocar e de seguida regresse a posição inicial',
-    //     },
-    //   ],
-    // };
-
-    // this.treinoService.adicionarTreino(treino.nome, treino.imagemURL, treino.exercicios)
-  }
+  
   ngOnInit(): void {
     this.treinoService.getTreinos();
     //ta pegando a listaTreinosAtualizada como observable e se inscrevendo nela. Td vez q essa lista é atualizada (td vez q chega naquele .next()), atualiza a lista local q foi inicializada com o metodo .getTreinos()
     this.treinosSubscription = this.treinoService
       .getListaDeTreinosAtualizadaObservable()
       .subscribe((treinos: Treino[]) => {
-        this.listaTreinos = treinos;
+        this.listaTreinosPadroes = treinos;
+      });
+
+    //carregando o usuario
+    this.usuarioService
+      .getUsuarioEmail('usuario@usuario.com')
+      .subscribe((dadosUsuario) => {
+        console.log('O q recebi', dadosUsuario);
+        this.usuario = {
+          nome: dadosUsuario.nome,
+          email: dadosUsuario.email,
+          peso: dadosUsuario.peso,
+          treinos: dadosUsuario.treinos,
+        };
+        console.log(this.usuario);
+
+        //pra cada treino do usuario, vou colocar ele dentro do listaTreinosUsuario
+        this.usuario.treinos.forEach((treino) => {
+          this.listaTreinosUsuario.push(treino);
+        });
+        
       });
   }
 
@@ -81,3 +76,4 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
     this.treinosSubscription.unsubscribe();
   }
 }
+

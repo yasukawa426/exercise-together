@@ -26,7 +26,7 @@ router.get("/:email", (req, res, next) => {
 });
 
 //atualzia o peso do usuario com esse email
-router.put("/:email", (req, res, next) =>{
+router.put("/:email/peso", (req, res, next) =>{
   console.log("Put recebido", req.body);
   usuario = Usuario.findOneAndUpdate({email: req.params.email }, {$push: {peso: {peso: req.body.peso, data: req.body.data}}}, {new: true}).then((documents) => {
     if (documents.peso === req.body.peso){

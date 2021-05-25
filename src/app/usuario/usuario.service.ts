@@ -26,8 +26,8 @@ export class UsuarioService {
 
   //atualiza o peso do usuario com esse email
   atualizarPeso(email:string, peso:{peso:number, data:string}){
-    this.httpClient.put<{mensagem: string, usuario: Usuario}>(`http://localhost:3000/api/usuarios/${email}`, peso).subscribe((dados) =>{
-      
+    this.httpClient.put<{mensagem: string, usuario: Usuario}>(`http://localhost:3000/api/usuarios/${email}/peso`,peso).subscribe((dados) =>{
+
     })
   }
 }

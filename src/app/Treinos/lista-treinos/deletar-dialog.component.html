@@ -1,0 +1,12 @@
+<div class="main">
+  <h2 mat-dialog-title>Deletar "{{ data }}"</h2>
+  <mat-dialog-content>
+    <p>Deseja deletar "{{ data }}?"</p>
+    <p><strong>Obs: Essa ação é irreversível</strong></p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close tabindex="-1">Cancelar</button>
+    <button mat-raised-button color="warn" tabindex="-1" [mat-dialog-close]="'deletar'">Deletar</button>
+  </mat-dialog-actions>
+</div>

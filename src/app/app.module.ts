@@ -30,6 +30,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { MatIconModule } from '@angular/material/icon';
     TreinoInserirComponent,
     PerfilComponent,
     BottomSheet,
-    DeletarDialogComponent
+    DeletarDialogComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

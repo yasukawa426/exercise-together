@@ -4,6 +4,7 @@ const express = require("express");
 const usuario = require("../models/usuario");
 const router = express.Router();
 const Usuario = require("../models/usuario");
+const bcrypt = require('bcrypt');
 
 //pega tds os usuarios
 router.get("", (req, res, next) => {
@@ -56,6 +57,29 @@ router.put("/:email", (req, res, next) => {
     .json({ mensagem: "Atualizado com sucesso", usuario: usuario });
   usuario = Usuario.findOneAndUpdate({ email: req.params.email}, req.body).then((documents) => {
     res.status(201).json({mensagem:"Usuario atualizado com sucesso", usuario:documents})
+  })
+});
+
+//cadastrar um novo usuario
+router.post('/signup', (req, res, next) => {
+  bcrypt.hash (req.body.password, 10)
+  .then (hash => {
+    const usuario = new Usuario ({
+      email: req.body.email,
+      password: req.body.password
+    })
+    usuario.save()
+    .then(result => {
+      res.status(201).json({
+        mensagem: "Usuario criado",
+        resultado: result
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        erro: err
+      })
+    })
   })
 });
 

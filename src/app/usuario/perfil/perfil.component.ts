@@ -9,6 +9,7 @@ import { Color, Label } from 'ng2-charts';
 import { Usuario } from '../usuario.model';
 import { UsuarioService } from '../usuario.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SwPush} from '@angular/service-worker'
 
 @Component({
   selector: 'app-perfil',
@@ -40,7 +41,8 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     public usuarioService: UsuarioService,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private swPush: SwPush
   ) {}
 
   ngOnInit() {

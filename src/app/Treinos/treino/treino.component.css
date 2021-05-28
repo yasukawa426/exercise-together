@@ -23,8 +23,22 @@ img{
 }
 .corpo-cartao{
   /* border:1px solid black; */
+  margin:0
 }
 
-button{
-  border-radius: 50%;
+
+.concluido{
+  /* border-radius: 30%; */
 }
+
+.descricao{
+  color: black
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+

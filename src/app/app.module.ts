@@ -30,6 +30,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatSnackBarModule,
     MatMenuModule,
     MatIconModule,
+    MatTabsModule,
   ],
   providers: [TreinoService, ExercicioService],
   bootstrap: [AppComponent],

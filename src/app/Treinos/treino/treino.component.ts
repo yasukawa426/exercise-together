@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 
 import { Exercicio } from '../Exercicios/exercicio.model';
 import { DialogoDescricaoExercicioComponent } from '../Exercicios/dialogo-descricao-exercicio/dialogo-descricao-exercicio.component'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-treino',
@@ -20,7 +21,9 @@ export class TreinoComponent implements OnInit {
   series: any;
   imagem: any;
   descricao: any;
-  constructor(public dialog: MatDialog) {}
+  //qual tab a gente ta
+  tabAtual = 0;
+  constructor(public dialog: MatDialog, public router: Router) {}
 
   ngOnInit(): void {
     let numeroExercicios: any= localStorage.getItem('numeroExercicios');
@@ -61,5 +64,20 @@ export class TreinoComponent implements OnInit {
         descricao: descricao
       }
     })
+  }
+
+  mudouTab(event){
+    console.log(this.tabAtual);
+    console.log(event);
+    this.tabAtual = event;
+  }
+  proximo(){
+    if (this.tabAtual < this.exercicios.length - 1){
+      this.tabAtual += 1
+    }
+    else{
+      alert("CONCLUIDO!")
+      this.router.navigate([""]);
+    }
   }
 }

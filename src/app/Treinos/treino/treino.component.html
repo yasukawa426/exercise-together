@@ -1,24 +1,47 @@
 <main>
-  <h1>{{titulo}}</h1>
+  <h1>{{ titulo }}</h1>
 
-  <mat-card *ngFor="let exercicio of exercicios">
-    <mat-card-header>
-      <mat-card-title>{{exercicio.nome}}</mat-card-title>
-      
-      
+  <mat-tab-group
+    [selectedIndex]="tabAtual"
+    (selectedIndexChange)="mudouTab($event)"
 
-    </mat-card-header>
-    <!-- <hr> -->
-    <img mat-card-image src="{{exercicio.imagem}}" alt="Ilustração do Exercicio">
-    <mat-card-content>
-
-      <p class="corpo-cartao">Repetições: {{exercicio.repeticao}}</p>
-      <p class="corpo-cartao">Series: {{exercicio.series}}</p>
-    </mat-card-content>
-    <mat-card-actions >
-      <button mat-raised-button color="primary" (click)="abrirDescricao(exercicio.descricao)">?</button>
-    </mat-card-actions>
-  </mat-card>
+  >
+    <mat-tab *ngFor="let exercicio of exercicios" #tab [disabled]='!tab.isActive' >
+      <ng-template mat-tab-label>{{ exercicio.nome }}</ng-template>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ exercicio.nome }}</mat-card-title>
+        </mat-card-header>
+        <!-- <hr> -->
+        <img
+          mat-card-image
+          src="{{ exercicio.imagem }}"
+          alt="Ilustração do Exercicio"
+        />
+        <mat-card-content>
+          <h1 class="corpo-cartao">x{{ exercicio.repeticao }}</h1>
+          <h2 class="corpo-cartao">{{ exercicio.series }} Serie(s)</h2>
+        </mat-card-content>
+        <mat-card-actions align="end" class="flex">
+          <button
+            class="descricao"
+            mat-button
+            color="primary"
+            (click)="abrirDescricao(exercicio.descricao)"
+          >
+            <mat-icon>help_outline</mat-icon>
+          </button>
+          <button
+            class="concluido"
+            mat-raised-button
+            color="primary"
+            (click)="proximo()"
+          >
+            CONCLUÍDO
+          </button>
+          <div><button mat-button></button></div>
+        </mat-card-actions>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
 </main>
-
-

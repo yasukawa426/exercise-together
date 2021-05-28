@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const Exercicio = require("../models/exercicio");
-
+const checkAuth = require('../middleware/check-auth');
 
 //pega tds os exercicios da tabela exercicio endpoint : localhost:3000/api/exercicios
 router.get("", (req, res, next) => {

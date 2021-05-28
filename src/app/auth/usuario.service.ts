@@ -20,4 +20,15 @@ export class UsuarioService {
       console.log(resposta)
     });
   }
+
+  login(email: string, senha: string) {
+    const authData: AuthData = {
+      email: email,
+      password: senha
+    }
+    this.httpClient.post("http://localhost:3000/api/usuario/login", authData)
+    .subscribe(resposta => {
+      console.log(resposta)
+    });
+  }
 }

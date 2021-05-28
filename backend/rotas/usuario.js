@@ -5,6 +5,7 @@ const usuario = require("../models/usuario");
 const router = express.Router();
 const Usuario = require("../models/usuario");
 const bcrypt = require('bcrypt');
+const jwt = ('jsonwebtoken');
 
 //pega tds os usuarios
 router.get("", (req, res, next) => {
@@ -82,6 +83,38 @@ router.post('/signup', (req, res, next) => {
     })
   })
 });
+
+//Usuario fazendo login
+router.post('/login', (req, res, next) => {
+  let user;
+  Usuario.findOne({ email: req.body.email }).then(u => {
+    user = u;
+    if(!u) {
+      return res.status(401).json({
+        mensagem: "email inválido"
+      })
+    }
+    return bcrypt.compare(req.body.password, u.password);
+  })
+  .then(result => {
+    if(!result) {
+      return res.status(401).json({
+        mensagem: "senha invalida"
+      })
+    }
+    const token = jwt.sign(
+      { email: user.email, id: user._id },
+      'minhasenha',
+      { expiresIn: '1h' }
+    )
+    res.status(200).json({ token: token})
+  })
+  .catch(err => {
+    return res.status(401).json({
+      mensagem: "Login falhou:" + err
+    })
+  })
+})
 
 //exportando
 module.exports = router;

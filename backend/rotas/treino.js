@@ -50,7 +50,7 @@ router.get("", (req, res, next) => {
 });
 
 //adiciona um treino na tabela treinos
-router.post("", multer({ storage: armazenamento }).single("imagem"), (req, res, next) => {
+router.post("", checkAuth, multer({ storage: armazenamento }).single("imagem"), (req, res, next) => {
     console.log("Recebi o post!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     body = req.body;
     const imagemURL = `${req.protocol}://${req.get("host")}`;

@@ -15,18 +15,18 @@
       >Treinar</a
     >
   </mat-card>
-  
+
   <h1>Seus Treinos</h1>
 
   <!-- mat-card para os treinos do usuario -->
-  <mat-card *ngFor="let treino of listaTreinosUsuario">
+  <mat-card *ngFor="let treino of listaTreinosUsuario; let i = index">
     <mat-card-header>
       <mat-card-title>{{ treino.nome }}</mat-card-title>
     </mat-card-header>
 
     <img mat-card-image src="{{ treino.imagemURL }}" alt="Capa do Treino" />
     <mat-card-actions align="end" class="flex">
-      <div class="espaçador"></div>
+      <div class="espaçador">{{i}}</div>
       <a
         routerLink="/treino"
         mat-raised-button
@@ -44,7 +44,7 @@
           <span style="color: rgb(206, 209, 20)">Atualizar</span>
         </button>
 
-        <button mat-menu-item>
+        <button mat-menu-item (click)="deletar(i)">
           <mat-icon>delete</mat-icon>
           <span style="color: red">Deletar</span>
         </button>

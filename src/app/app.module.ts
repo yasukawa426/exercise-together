@@ -33,6 +33,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { PushNotificationsService } from 'ng-push'
 
 @NgModule({
   declarations: [
@@ -66,14 +67,16 @@ import { environment } from '../environments/environment';
     MatMenuModule,
     MatIconModule,
     MatTabsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
+    // PushNotificationsModule,
+    // ServiceWorkerModule.register('ngsw-worker.js', {
+    //   enabled: true,
+    //   // enabled: environment.production
+    //   // Register the ServiceWorker as soon as the app is stable
+    //   // or after 30 seconds (whichever comes first).
+    //   registrationStrategy: 'registerWhenStable:30000'
+    // }),
   ],
-  providers: [TreinoService, ExercicioService],
+  providers: [TreinoService, ExercicioService, PushNotificationsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

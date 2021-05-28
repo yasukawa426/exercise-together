@@ -31,9 +31,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 import { PushNotificationsService } from 'ng-push'
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -67,6 +66,7 @@ import { PushNotificationsService } from 'ng-push'
     MatMenuModule,
     MatIconModule,
     MatTabsModule,
+    MatProgressSpinnerModule
     // PushNotificationsModule,
     // ServiceWorkerModule.register('ngsw-worker.js', {
     //   enabled: true,

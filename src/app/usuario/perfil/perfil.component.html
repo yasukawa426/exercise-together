@@ -1,28 +1,34 @@
 <div style="display: block">
-  <mat-card>
-    <!-- nome -->
-    <p>
-      <span class="material-icons"> person </span>
-      {{ usuario.nome }}
-    </p>
-    <hr />
-    <!-- email -->
-    <p>
-      <span class="material-icons"> contact_mail </span>
-      {{ usuario.email }}
-    </p>
-    <hr />
-    <!-- peso -->
-    <span>
-      <span class="material-icons"> monitor_weight </span>{{ ultimoPeso }} kg
-    </span>
-    <span class="separador"></span>
-    <button mat-icon-button (click)="abrirAtualizarPeso()" aria-label="add">
-      <span class="material-icons add"> add </span>
-    </button>
-    <hr>
-    <!-- notificações -->
-    <button mat-raised-button color="primary" (click)="lembrar()">Me lembre de treinar!</button>
+  <mat-card >
+    <div class="spinner" >
+      <mat-spinner *ngIf="usuario===undefined"></mat-spinner>
+    </div>
+    <div class="informacoes" *ngIf="usuario!== undefined">
+
+      <!-- nome -->
+      <p>
+        <span class="material-icons"> person </span>
+        {{ usuario.nome }}
+      </p>
+      <hr />
+      <!-- email -->
+      <p>
+        <span class="material-icons"> contact_mail </span>
+        {{ usuario.email }}
+      </p>
+      <hr />
+      <!-- peso -->
+      <span>
+        <span class="material-icons"> monitor_weight </span>{{ ultimoPeso }} kg
+      </span>
+      <span class="separador"></span>
+      <button mat-icon-button (click)="abrirAtualizarPeso()" aria-label="add">
+        <span class="material-icons add"> add </span>
+      </button>
+      <hr>
+      <!-- notificações -->
+      <button mat-raised-button color="primary" (click)="lembrar()">Me lembre de treinar!</button>
+    </div>
   </mat-card>
   <canvas
     baseChart

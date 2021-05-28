@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const jwt = ('jsonwebtoken');
 
 //pega tds os usuarios
-router.get("", (req, res, next) => {
+router.get("", checkAuth, (req, res, next) => {
   usuarios = Usuario.find().then((documents) => {
     res.status(200).json({
       mensagem: "Tudo ok no get, toma seus usuarios",
@@ -18,7 +18,7 @@ router.get("", (req, res, next) => {
 });
 
 //pega o usuario com esse email
-router.get("/:email", (req, res, next) => {
+router.get("/:email", checkAuth, (req, res, next) => {
   let usuario = Usuario.findOne({ email: req.params.email }).then(
     (documents) => {
       if (documents) {
@@ -31,7 +31,7 @@ router.get("/:email", (req, res, next) => {
 });
 
 //atualzia o peso do usuario com esse email
-router.put("/:email/peso", (req, res, next) => {
+router.put("/:email/peso", checkAuth, (req, res, next) => {
   console.log("Put recebido", req.body);
   let usuario = Usuario.findOneAndUpdate(
     { email: req.params.email },
@@ -51,7 +51,7 @@ router.put("/:email/peso", (req, res, next) => {
 });
 
 // atualiza tds os atributos de usuario com esse email
-router.put("/:email", (req, res, next) => {
+router.put("/:email", checkAuth, (req, res, next) => {
   console.log("Put recebido", req.body);
   res
     .status(201)
@@ -61,7 +61,7 @@ router.put("/:email", (req, res, next) => {
   })
 });
 
-//cadastrar um novo usuario
+//Cadastro do usuario
 router.post('/signup', (req, res, next) => {
   bcrypt.hash (req.body.password, 10)
   .then (hash => {

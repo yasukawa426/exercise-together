@@ -19,7 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { TreinoService } from './Treinos/treino.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ExercicioService } from './Treinos/Exercicios/exercicio.service';
 import { ChartsModule } from 'ng2-charts';
 import {
@@ -32,6 +32,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     MatMenuModule,
     MatIconModule,
   ],
-  providers: [TreinoService, ExercicioService],
+  providers: [TreinoService, ExercicioService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

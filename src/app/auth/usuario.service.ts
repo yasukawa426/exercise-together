@@ -7,6 +7,11 @@ import { AuthData } from './auth-data.model';
 })
 export class UsuarioService {
 
+  private token: string;
+  public getToken(): string {
+    return this.token;
+  }
+
   constructor(private httpClient: HttpClient) {
 
   }
@@ -26,9 +31,9 @@ export class UsuarioService {
       email: email,
       password: senha
     }
-    this.httpClient.post("http://localhost:3000/api/usuario/login", authData)
+    this.httpClient.post <{ token: string}> ("http://localhost:3000/api/usuario/login", authData)
     .subscribe(resposta => {
-      console.log(resposta)
+      this.token = resposta.token;
     });
   }
 }

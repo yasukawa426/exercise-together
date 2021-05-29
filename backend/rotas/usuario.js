@@ -67,9 +67,9 @@ router.post('/signup', (req, res, next) => {
   bcrypt.hash (req.body.password, 10)
   .then (hash => {
     const usuario = new Usuario ({
-      nome: "Carlos",
+      nome: "Carlos1",
       email: req.body.email,
-      password: req.body.password
+      password: hash
     })
     console.log("Criei o usuario");
     usuario.save()

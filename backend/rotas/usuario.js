@@ -4,9 +4,9 @@ const express = require("express");
 const usuario = require("../models/usuario");
 const router = express.Router();
 const Usuario = require("../models/usuario");
-const bcrypt = require('bcrypt');
-const jwt = ('jsonwebtoken');
-const checkAuth = require('../middleware/check-auth');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const checkAuth = require("../middleware/check-auth");
 
 //pega tds os usuarios
 router.get("", checkAuth, (req, res, next) => {
@@ -39,7 +39,7 @@ router.put("/:email/peso", checkAuth, (req, res, next) => {
     { $push: { peso: { peso: req.body.peso, data: req.body.data } } },
     { new: true }
   ).then((documents) => {
-    let ultimoPeso = documents.peso[documents.peso.length-1]
+    let ultimoPeso = documents.peso[documents.peso.length - 1];
     console.log(ultimoPeso, req.body);
     if (ultimoPeso.peso == req.body.peso) {
       res
@@ -57,71 +57,77 @@ router.put("/:email", checkAuth, (req, res, next) => {
   res
     .status(201)
     .json({ mensagem: "Atualizado com sucesso", usuario: usuario });
-  usuario = Usuario.findOneAndUpdate({ email: req.params.email}, req.body).then((documents) => {
-    res.status(201).json({mensagem:"Usuario atualizado com sucesso", usuario:documents})
-  })
+  usuario = Usuario.findOneAndUpdate(
+    { email: req.params.email },
+    req.body
+  ).then((documents) => {
+    res
+      .status(201)
+      .json({ mensagem: "Usuario atualizado com sucesso", usuario: documents });
+  });
 });
 
 //Cadastro do usuario
-router.post('/signup/:nome', (req, res, next) => {
-  bcrypt.hash (req.body.password, 10)
-  .then (hash => {
-    const usuario = new Usuario ({
+router.post("/signup/:nome", (req, res, next) => {
+  bcrypt.hash(req.body.password, 10).then((hash) => {
+    const usuario = new Usuario({
       nome: req.params.nome,
       email: req.body.email,
-      password: hash
-    })
+      password: hash,
+    });
     console.log("Criei o usuario");
-    usuario.save()
+    usuario
+      .save()
 
-    .then(result => {
-      console.log("Salvei o usuario");
-      res.status(201).json({
-        mensagem: "Usuario criado",
-        resultado: result
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        erro: err
+      .then((result) => {
+        console.log("Salvei o usuario");
+        res.status(201).json({
+          mensagem: "Usuario criado",
+          resultado: result,
+        });
       })
-    })
-  })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          erro: err,
+        });
+      });
+  });
 });
 
 //Usuario fazendo login
-router.post('/login', (req, res, next) => {
+router.post("/login", (req, res, next) => {
   let user;
-  Usuario.findOne({ email: req.body.email }).then(u => {
-    user = u;
-    if(!u) {
-      return res.status(401).json({
-        mensagem: "email inválido"
-      })
-    }
-    return bcrypt.compare(req.body.password, u.password);
-  })
-  .then(result => {
-    if(!result) {
-      return res.status(401).json({
-        mensagem: "senha invalida"
-      })
-    }
-    const token = jwt.sign(
-      { email: user.email, id: user._id },
-      'minhasenha',
-      { expiresIn: '1h' }
-    )
-    res.status(200).json({ token: token})
-  })
-  .catch(err => {
-    console.log(err);
-    return res.status(401).json({
-      mensagem: "Login falhou:" + err
+  Usuario.findOne({ email: req.body.email })
+    .then((u) => {
+      user = u;
+      if (!u) {
+        return res.status(401).json({
+          mensagem: "email inválido",
+        });
+      }
+      return bcrypt.compare(req.body.password, u.password);
     })
-  })
-})
+    .then((result) => {
+      if (!result) {
+        return res.status(401).json({
+          mensagem: "senha invalida",
+        });
+      }
+      const token = jwt.sign(
+        { email: user.email, id: user._id },
+        "minhasenha",
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({ token: token });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(401).json({
+        mensagem: "Login falhou:" + err,
+      });
+    });
+});
 
 //exportando
 module.exports = router;

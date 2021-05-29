@@ -8,9 +8,14 @@ import { Subject } from 'rxjs';
 })
 export class UsuarioServiceAuth {
   private token: string;
+  private autenticado: boolean = false;
   private authStatusSubject = new Subject<boolean>();
 
   constructor(private httpClient: HttpClient) {}
+
+  public isAutenticado():boolean{
+   return this.autenticado
+  }
 
   public getToken(): string {
     return this.token;
@@ -44,8 +49,11 @@ export class UsuarioServiceAuth {
       )
       .subscribe((resposta) => {
         this.token = resposta.token;
-        console.log(resposta);
-        this.authStatusSubject.next(true);
+        if (this.token){
+          console.log(resposta);
+          this.autenticado=true
+          this.authStatusSubject.next(true);
+        }
       });
   }
 }

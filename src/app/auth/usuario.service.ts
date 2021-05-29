@@ -20,7 +20,7 @@ export class UsuarioService {
       email: email,
       password: senha
     }
-    this.httpClient.post("http://localhost:3000/api/usuario/signup", authData)
+    this.httpClient.post("http://localhost:3000/api/usuarios/signup", authData)
     .subscribe(resposta => {
       console.log(resposta)
     });
@@ -31,7 +31,7 @@ export class UsuarioService {
       email: email,
       password: senha
     }
-    this.httpClient.post <{ token: string}> ("http://localhost:3000/api/usuario/login", authData)
+    this.httpClient.post <{ token: string}> ("http://localhost:3000/api/usuarios/login", authData)
     .subscribe(resposta => {
       this.token = resposta.token;
     });

@@ -67,17 +67,22 @@ router.post('/signup', (req, res, next) => {
   bcrypt.hash (req.body.password, 10)
   .then (hash => {
     const usuario = new Usuario ({
+      nome: "Carlos",
       email: req.body.email,
       password: req.body.password
     })
+    console.log("Criei o usuario");
     usuario.save()
+
     .then(result => {
+      console.log("Salvei o usuario");
       res.status(201).json({
         mensagem: "Usuario criado",
         resultado: result
       });
     })
     .catch(err => {
+      console.log(err);
       res.status(500).json({
         erro: err
       })
@@ -111,6 +116,7 @@ router.post('/login', (req, res, next) => {
     res.status(200).json({ token: token})
   })
   .catch(err => {
+    console.log(err);
     return res.status(401).json({
       mensagem: "Login falhou:" + err
     })

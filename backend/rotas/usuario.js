@@ -63,11 +63,11 @@ router.put("/:email", checkAuth, (req, res, next) => {
 });
 
 //Cadastro do usuario
-router.post('/signup', (req, res, next) => {
+router.post('/signup/:nome', (req, res, next) => {
   bcrypt.hash (req.body.password, 10)
   .then (hash => {
     const usuario = new Usuario ({
-      nome: "Carlos1",
+      nome: req.params.nome,
       email: req.body.email,
       password: hash
     })

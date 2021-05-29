@@ -15,12 +15,12 @@ export class UsuarioService {
   constructor(private httpClient: HttpClient) {
 
   }
-  criarUsuario(email: string, senha: string) {
+  criarUsuario(email: string, senha: string, nome: string) {
     const authData: AuthData = {
       email: email,
-      password: senha
+      password: senha,
     }
-    this.httpClient.post("http://localhost:3000/api/usuarios/signup", authData)
+    this.httpClient.post(`http://localhost:3000/api/usuarios/signup/${nome}`, authData)
     .subscribe(resposta => {
       console.log(resposta)
     });

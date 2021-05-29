@@ -1,17 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsuarioService {
+export class UsuarioServiceAuth {
   private token: string;
+  private authStatusSubject = new Subject<boolean>();
+
+  constructor(private httpClient: HttpClient) {}
+
   public getToken(): string {
     return this.token;
   }
 
-  constructor(private httpClient: HttpClient) {}
+  public getStatusSubject() {
+    return this.authStatusSubject.asObservable();
+  }
+
   criarUsuario(email: string, senha: string, nome: string) {
     const authData: AuthData = {
       email: email,
@@ -37,6 +45,7 @@ export class UsuarioService {
       .subscribe((resposta) => {
         this.token = resposta.token;
         console.log(resposta);
+        this.authStatusSubject.next(true);
       });
   }
 }

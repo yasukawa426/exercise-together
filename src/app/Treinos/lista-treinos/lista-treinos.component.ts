@@ -4,6 +4,7 @@ import { Treino } from '../treino.model';
 import { TreinoService } from '../treino.service';
 import { Subscription, Observable } from 'rxjs';
 import { UsuarioService } from 'src/app/usuario/usuario.service';
+import { UsuarioServiceAuth } from 'src/app/auth/usuario.service'
 import { Usuario } from 'src/app/usuario/usuario.model';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -17,6 +18,7 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
   constructor(
     public treinoService: TreinoService,
     public usuarioService: UsuarioService,
+    public usuarioServiceAuth: UsuarioServiceAuth,
     public dialog: MatDialog
   ) {}
 

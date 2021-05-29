@@ -26,6 +26,8 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
   private authObserver: Subscription;
   listaTreinosPadroes: Treino[] = [];
   listaTreinosUsuario: Treino[] = [];
+  //email de quem esta logado
+  email: string;
   usuario: Usuario;
   private treinosSubscription: Subscription;
   @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
@@ -38,6 +40,7 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
 
     //limpando o local storage antes de colocar
     localStorage.clear();
+    localStorage.setItem('emailLogado', this.email);
     localStorage.setItem('TreinoNome', nome);
     let numeroExercicios = 0;
     for (let i = 0; i < exercicios.length; i++) {
@@ -55,22 +58,25 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.treinoService.getTreinos();
     //ta pegando a listaTreinosAtualizada como observable e se inscrevendo nela. Td vez q essa lista é atualizada (td vez q chega naquele .next()), atualiza a lista local q foi inicializada com o metodo .getTreinos()
+    //treinos padroes
     this.treinosSubscription = this.treinoService
       .getListaDeTreinosAtualizadaObservable()
       .subscribe((treinos: Treino[]) => {
         this.listaTreinosPadroes = treinos;
       });
 
-
-      //checando se está autenticado
-      this.autenticado = this.usuarioServiceAuth.isAutenticado();
-      this.authObserver = this.usuarioServiceAuth.getStatusSubject().subscribe((autenticado) =>{
-        this.autenticado = autenticado
-      })
+    //checando se está autenticado
+    this.autenticado = this.usuarioServiceAuth.isAutenticado();
+    this.authObserver = this.usuarioServiceAuth
+      .getStatusSubject()
+      .subscribe((autenticado) => {
+        this.autenticado = autenticado;
+      });
 
     //carregando o usuario
+    this.email = localStorage.getItem('emailLogado');
     this.usuarioService
-      .getUsuarioEmail('usuario@usuario.com')
+      .getUsuarioEmail(this.email)
       .subscribe((dadosUsuario) => {
         console.log('O q recebi', dadosUsuario);
         this.usuario = {
@@ -110,10 +116,7 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
         //atualizar os treinos do usuario com esse vetor atualizado
         this.usuario.treinos = this.listaTreinosUsuario;
         //atualiza o usuario no banco
-        this.usuarioService.atualizarUsuario(
-          'usuario@usuario.com',
-          this.usuario
-        );
+        this.usuarioService.atualizarUsuario(this.email, this.usuario);
       }
     });
   }

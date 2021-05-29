@@ -23,4 +23,8 @@ export class CabecalhoComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.authObserver.unsubscribe()
   }
+
+  onLogout(){
+    this.usuarioService.logout()
+  }
 }

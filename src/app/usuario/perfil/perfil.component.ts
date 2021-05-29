@@ -37,15 +37,17 @@ export class PerfilComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
-
+  //email de quem ta logado
+  email:string
   constructor(
     public usuarioService: UsuarioService,
     private _bottomSheet: MatBottomSheet
   ) {}
 
   ngOnInit() {
+    this.email = localStorage.getItem('emailLogado')
     this.usuarioService
-      .getUsuarioEmail('usuario@usuario.com')
+      .getUsuarioEmail(this.email)
       .subscribe((dadosUsuario) => {
         console.log('O q recebi', dadosUsuario);
         this.usuario = {
@@ -108,7 +110,7 @@ export class BottomSheet {
       peso: this.pesoAtual,
       data: dataFormatada
     }
-    this.usuarioService.atualizarPeso("usuario@usuario.com", pesoData)
+    this.usuarioService.atualizarPeso(localStorage.getItem("emailLogado"), pesoData)
 
     this._bottomSheetRef.dismiss({pesoAtualizado:this.pesoAtual, data: dataFormatada});
     this._snackBar.open('Peso atualizado!', 'X', {

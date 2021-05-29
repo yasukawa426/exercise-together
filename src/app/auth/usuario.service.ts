@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,10 @@ export class UsuarioServiceAuth {
   private autenticado: boolean = false;
   private authStatusSubject = new Subject<boolean>();
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
-  public isAutenticado():boolean{
-   return this.autenticado
+  public isAutenticado(): boolean {
+    return this.autenticado;
   }
 
   public getToken(): string {
@@ -49,11 +50,20 @@ export class UsuarioServiceAuth {
       )
       .subscribe((resposta) => {
         this.token = resposta.token;
-        if (this.token){
+        if (this.token) {
           console.log(resposta);
-          this.autenticado=true
+          localStorage.setItem('emailLogado', email)
+          this.autenticado = true;
           this.authStatusSubject.next(true);
+          this.router.navigate(['/']);
         }
       });
+  }
+
+  logout() {
+    this.token = null;
+    this.authStatusSubject.next(false);
+    localStorage.removeItem("emailLogado")
+    this.router.navigate(['/']);
   }
 }

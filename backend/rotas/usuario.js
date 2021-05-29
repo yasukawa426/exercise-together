@@ -7,6 +7,29 @@ const Usuario = require("../models/usuario");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const checkAuth = require("../middleware/check-auth");
+const multer = require("multer");
+
+const armazenamento = multer.diskStorage({
+  //requisiçao, arquivo extraido e uma funçao que indica um erro ou devolve o diretorio que as //fotos vao ficar
+  destination: (req, file, callback) => {
+    let e = MIME_TYPE_EXTENSAO_MAPA[file.mimetype]
+      ? null
+      : new Error("Mime Type Inválido");
+    callback(e, "backend/imagens");
+  },
+  filename: (req, file, callback) => {
+    const nome = file.originalname.toLowerCase().split(" ").join("_");
+    const extensao = MIME_TYPE_EXTENSAO_MAPA[file.mimetype];
+    callback(null, `${nome}-${Date.now()}.${extensao}`);
+  },
+});
+
+const MIME_TYPE_EXTENSAO_MAPA = {
+  "image/png": "png",
+  "image/jpeg": "jpg",
+  "image/jpg": "jpg",
+  "image/bmp": "bmp",
+};
 
 //pega tds os usuarios
 router.get("", checkAuth, (req, res, next) => {
@@ -30,6 +53,40 @@ router.get("/:email", checkAuth, (req, res, next) => {
     }
   );
 });
+
+//adiciona um treino ao usuario
+router.put(
+  "/treino/:email",
+  checkAuth,
+  multer({ storage: armazenamento }).single("imagem"),
+  (req, res, next) => {
+    const imagemURL = `${req.protocol}://${req.get("host")}`;
+    vetorExercicios = JSON.parse(req.body.exercicios);
+    const treino = {
+      nome: req.body.nome,
+      imagemURL: `${imagemURL}/imagens/${req.file.filename}`,
+      exercicios: vetorExercicios,
+    };
+
+    let usuario = Usuario.findOneAndUpdate(
+      {
+        email: req.params.email,
+      },
+      {
+        $push: {
+          treinos: {
+            nome: treino.nome,
+            imagemURL: treino.imagemURL,
+            exercicios: treino.exercicios,
+          },
+        },
+      },
+      { new: true }
+    ).then((documents) => {
+      res.status(201).json({ mensagem: "Treino add", usuario: documents });
+    });
+  }
+);
 
 //atualzia o peso do usuario com esse email
 router.put("/:email/peso", checkAuth, (req, res, next) => {

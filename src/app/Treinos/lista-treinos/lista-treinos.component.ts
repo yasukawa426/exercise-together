@@ -4,6 +4,7 @@ import { Treino } from '../treino.model';
 import { TreinoService } from '../treino.service';
 import { Subscription, Observable } from 'rxjs';
 import { UsuarioService } from 'src/app/usuario/usuario.service';
+import { UsuarioServiceAuth } from 'src/app/auth/usuario.service';
 import { Usuario } from 'src/app/usuario/usuario.model';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -17,11 +18,16 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
   constructor(
     public treinoService: TreinoService,
     public usuarioService: UsuarioService,
+    public usuarioServiceAuth: UsuarioServiceAuth,
     public dialog: MatDialog
   ) {}
 
+  public autenticado: boolean = false;
+  private authObserver: Subscription;
   listaTreinosPadroes: Treino[] = [];
   listaTreinosUsuario: Treino[] = [];
+  //email de quem esta logado
+  email: string;
   usuario: Usuario;
   private treinosSubscription: Subscription;
   @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
@@ -34,6 +40,7 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
 
     //limpando o local storage antes de colocar
     localStorage.clear();
+    localStorage.setItem('emailLogado', this.email);
     localStorage.setItem('TreinoNome', nome);
     let numeroExercicios = 0;
     for (let i = 0; i < exercicios.length; i++) {
@@ -51,15 +58,25 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.treinoService.getTreinos();
     //ta pegando a listaTreinosAtualizada como observable e se inscrevendo nela. Td vez q essa lista é atualizada (td vez q chega naquele .next()), atualiza a lista local q foi inicializada com o metodo .getTreinos()
+    //treinos padroes
     this.treinosSubscription = this.treinoService
       .getListaDeTreinosAtualizadaObservable()
       .subscribe((treinos: Treino[]) => {
         this.listaTreinosPadroes = treinos;
       });
 
+    //checando se está autenticado
+    this.autenticado = this.usuarioServiceAuth.isAutenticado();
+    this.authObserver = this.usuarioServiceAuth
+      .getStatusSubject()
+      .subscribe((autenticado) => {
+        this.autenticado = autenticado;
+      });
+
     //carregando o usuario
+    this.email = localStorage.getItem('emailLogado');
     this.usuarioService
-      .getUsuarioEmail('usuario@usuario.com')
+      .getUsuarioEmail(this.email)
       .subscribe((dadosUsuario) => {
         console.log('O q recebi', dadosUsuario);
         this.usuario = {
@@ -80,26 +97,28 @@ export class ListaTreinosComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     //quando lista-treino é fechado, se desinscreve da listaAtuliaza para imperdir um vazamento de memoria
     this.treinosSubscription.unsubscribe();
+    this.authObserver.unsubscribe();
   }
 
   deletar(i: number) {
-    const nome = this.listaTreinosUsuario[i].nome
-    const dialogRef = this.dialog.open(DeletarDialogComponent,
-      {
+    const nome = this.listaTreinosUsuario[i].nome;
+    const dialogRef = this.dialog.open(DeletarDialogComponent, {
       restoreFocus: false,
-      data: nome
+      data: nome,
     });
     dialogRef.afterClosed().subscribe((resultado) => {
-      if (resultado === "deletar"){
-        console.log(`Deletando treino ${i}, ${this.listaTreinosUsuario[i].nome}`);
+      if (resultado === 'deletar') {
+        console.log(
+          `Deletando treino ${i}, ${this.listaTreinosUsuario[i].nome}`
+        );
         //tira o treino do vetor
-        this.listaTreinosUsuario.splice(i,1)
+        this.listaTreinosUsuario.splice(i, 1);
         //atualizar os treinos do usuario com esse vetor atualizado
-        this.usuario.treinos = this.listaTreinosUsuario
+        this.usuario.treinos = this.listaTreinosUsuario;
         //atualiza o usuario no banco
-        this.usuarioService.atualizarUsuario("usuario@usuario.com", this.usuario)
+        this.usuarioService.atualizarUsuario(this.email, this.usuario);
       }
-    })
+    });
   }
 }
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Exercicio } from '../Treinos/Exercicios/exercicio.model';
 import { Treino } from '../Treinos/treino.model';
 import { Usuario } from './usuario.model';
 
@@ -34,7 +35,24 @@ export class UsuarioService {
   //atualiza td do usuario com esse email
   atualizarUsuario(email: string, usuario: Usuario){
     this.httpClient.put<{mensagem:string, usuario: Usuario}>(`http://localhost:3000/api/usuarios/${email}`, usuario).subscribe((dados) =>{
-      
+
+    })
+  }
+
+  //adiciona treino no usuario
+  adicionarTreino(nome:string, imagem:File, exercicios: Exercicio[], email: string){
+    /*const treino: Treino = {
+      nome:nome,
+      imagem: imagem,
+      exercicios: exercicios,
+    };*/
+    const dadosTreino = new FormData();
+    dadosTreino.append("nome", nome);
+    dadosTreino.append('imagem', imagem);
+    dadosTreino.append('exercicios', JSON.stringify(exercicios))
+    console.log("Uma linha antes de fazer o post")
+    this.httpClient.put<{mensagem: string, treino: Treino}>(`http://localhost:3000/api/usuarios/treino/${email}`, dadosTreino).subscribe((dados) => {
+      console.log("Uma linha dps de fazer o post")
     })
   }
 }

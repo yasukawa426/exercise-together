@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const Exercicio = require("../models/exercicio");
-
+const checkAuth = require('../middleware/check-auth');
 
 //pega tds os exercicios da tabela exercicio endpoint : localhost:3000/api/exercicios
 router.get("", (req, res, next) => {
@@ -16,7 +16,7 @@ router.get("", (req, res, next) => {
 
 //repiticao e series não são necessarias pq a gente vai querer colocar no banco com o valor 0 msm, só vamos mudar esse valor quando for usar pra criar um treino.
 //Esse metodo adiciona um exercicio no banco, provavelmnete só vai ser usado por adms
-router.post("", (req, res, next) =>{
+router.post("", checkAuth, (req, res, next) =>{
   body = req.body
 
   const exercicio = new Exercicio({

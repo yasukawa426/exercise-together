@@ -19,7 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { TreinoService } from './Treinos/treino.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ExercicioService } from './Treinos/Exercicios/exercicio.service';
 import { ChartsModule } from 'ng2-charts';
 import {
@@ -33,6 +33,9 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import { PushNotificationsService } from 'ng-push'
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     TreinoInserirComponent,
     PerfilComponent,
     BottomSheet,
-    DeletarDialogComponent
+    DeletarDialogComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +81,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     //   registrationStrategy: 'registerWhenStable:30000'
     // }),
   ],
-  providers: [TreinoService, ExercicioService, PushNotificationsService],
+  providers: [TreinoService, ExercicioService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, PushNotificationsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

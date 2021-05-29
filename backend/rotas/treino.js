@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const Treino = require("../models/treino");
 const multer = require("multer");
+const checkAuth = require('../middleware/check-auth');
 
 const armazenamento = multer.diskStorage({
   //requisiçao, arquivo extraido e uma funçao que indica um erro ou devolve o diretorio que as //fotos vao ficar
@@ -50,7 +51,7 @@ router.get("", (req, res, next) => {
 });
 
 //adiciona um treino na tabela treinos
-router.post("", multer({ storage: armazenamento }).single("imagem"), (req, res, next) => {
+router.post("", checkAuth, multer({ storage: armazenamento }).single("imagem"), (req, res, next) => {
     console.log("Recebi o post!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     body = req.body;
     const imagemURL = `${req.protocol}://${req.get("host")}`;

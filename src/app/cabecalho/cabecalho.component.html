@@ -1,7 +1,12 @@
 <mat-toolbar class="barra">
-  <span><a routerLink="">{{titulo}}</a></span>
+  <span
+    ><a routerLink="">{{ titulo }}</a></span
+  >
   <span class="separador"></span>
   <ul>
-    <a routerLink="/perfil" class="material-icons"> account_circle </a>
+    <li><a *ngIf="!autenticado" mat-button routerLink="/login"> Login </a></li>
+    <li><a *ngIf="!autenticado" mat-button routerLink="/signup"> Cadastrar </a></li>
+    <li><button *ngIf="autenticado" (click)="onLogout()" mat-button>Logout</button></li>
+    <li><a *ngIf="autenticado" routerLink="/perfil" class="material-icons"> account_circle </a></li>
   </ul>
 </mat-toolbar>

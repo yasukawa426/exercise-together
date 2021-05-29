@@ -13,6 +13,7 @@ import { ExercicioService } from '../Exercicios/exercicio.service';
 import { Subscription } from 'rxjs';
 import { mimeTypeValidator } from './mime-type.validator';
 import { MatSelectChange } from '@angular/material/select';
+import { UsuarioService } from 'src/app/usuario/usuario.service';
 @Component({
   selector: 'app-treino-inserir',
   templateUrl: './treino-inserir.component.html',
@@ -27,12 +28,15 @@ export class TreinoInserirComponent implements OnInit, OnDestroy {
   form: FormGroup;
   previewImagem: string;
   exercicioSelecionado: Exercicio[] = null;
+  email:string
 
   constructor(
     public exercicioService: ExercicioService,
-    public treinoService: TreinoService
+    public treinoService: TreinoService,
+    public usuarioService: UsuarioService,
   ) {}
   ngOnInit(): void {
+    this.email = localStorage.getItem('emailLogado')
     this.exercicioService.getExercicios();
     this.exerciciosSubscription = this.exercicioService
       .getListaDeTreinosAtualizadaObservable()
@@ -65,11 +69,14 @@ export class TreinoInserirComponent implements OnInit, OnDestroy {
     console.log('Imagem: ', this.form.value.imagem);
     console.log('Exercicios: ', this.form.value.exercicios);
     console.log('Selecionados: ', this.exercicioSelecionado);
+    console.log("Email: ", this.email);
 
-    this.treinoService.adicionarTreino(
+
+    this.usuarioService.adicionarTreino(
       this.form.value.nome,
       this.form.value.imagem,
-      this.form.value.exercicios
+      this.form.value.exercicios,
+      this.email
     );
 
     this.form.reset();

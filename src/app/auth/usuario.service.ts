@@ -63,6 +63,7 @@ export class UsuarioServiceAuth {
   logout() {
     this.token = null;
     this.authStatusSubject.next(false);
+    this.autenticado = false;
     localStorage.removeItem("emailLogado")
     this.router.navigate(['/']);
   }

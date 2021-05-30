@@ -54,5 +54,6 @@ export class UsuarioService {
     this.httpClient.put<{mensagem: string, treino: Treino}>(`http://localhost:3000/api/usuarios/treino/${email}`, dadosTreino).subscribe((dados) => {
       console.log("Uma linha dps de fazer o post")
     })
+    this.router.navigate(['/']);
   }
 }

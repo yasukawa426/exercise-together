@@ -14,6 +14,22 @@ const adminBro = new AdminBro({
   rootPath: "/admin",
 });
 
-const router = AdminBroExpress.buildRouter(adminBro);
+//por enquanto ta pegando a senha direto daqui
+const ADMIN = {
+  email: process.env.ADMIN_EMAIL || 'admin@admin.com',
+  password: process.env.ADMIN_PASSWORD || 'senha123'
+}
+
+const router = AdminBroExpress.buildAuthenticatedRouter(adminBro,
+  {
+    cookieName: process.env.ADMIN_COOKIE_NAME || 'admin-bro',
+    cookiePassword: process.env.ADMIN_COOKIE_PASS || 'senha-super-secreta',
+    authenticate: async (email, password) => {
+      if (email === ADMIN.email && password === ADMIN.password){
+        return ADMIN
+      }
+      return null
+    }
+  });
 
 module.exports = router

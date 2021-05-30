@@ -12,7 +12,7 @@ app.use(express.json())
 const treinoRoutes = require('./rotas/treino')
 const exercicioRoutes = require ('./rotas/exercicio')
 const usuarioRoutes = require('./rotas/usuario')
-
+const adminBroRoutes = require('./rotas/adminBro')
 
 mongoose.connect ('mongodb+srv://x2_admin:x20123@clusterx2.2ajvc.mongodb.net/exerciseTogether?retryWrites=true&w=majority').then(() => {
   console.log ("Conexão OK")
@@ -32,7 +32,8 @@ mongoose.connect ('mongodb+srv://x2_admin:x20123@clusterx2.2ajvc.mongodb.net/exe
   //   next();
   // })
 
-//pra comçear a usar os endpoints
+  //pra comçear a usar os endpoints
+  app.use('/admin', adminBroRoutes)
 app.use('/api/treinos', treinoRoutes);
 app.use('/api/exercicios', exercicioRoutes);
 app.use('/api/usuarios', usuarioRoutes);

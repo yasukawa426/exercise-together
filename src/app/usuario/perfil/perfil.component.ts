@@ -9,6 +9,7 @@ import { Color, Label } from 'ng2-charts';
 import { Usuario } from '../usuario.model';
 import { UsuarioService } from '../usuario.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PushNotificationsService } from 'ng-push'
 
 @Component({
   selector: 'app-perfil',
@@ -37,15 +38,18 @@ export class PerfilComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
-
+  //email de quem ta logado
+  email:string
   constructor(
     public usuarioService: UsuarioService,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private _pushNotifications: PushNotificationsService
   ) {}
 
   ngOnInit() {
+    this.email = localStorage.getItem('emailLogado')
     this.usuarioService
-      .getUsuarioEmail('usuario@usuario.com')
+      .getUsuarioEmail(this.email)
       .subscribe((dadosUsuario) => {
         console.log('O q recebi', dadosUsuario);
         this.usuario = {
@@ -64,22 +68,33 @@ export class PerfilComponent implements OnInit {
         this.lineChartLabels = this.arrayData;
         //ultimo peso = ao ultimo peso do arrayPeso
         this.ultimoPeso = this.arrayPeso[this.arrayPeso.length - 1];
+
+        this._pushNotifications.requestPermission()
       });
-
-
   }
 
   abrirAtualizarPeso() {
-    this._bottomSheet.open(BottomSheet, {
-      data: this.ultimoPeso
-    }).afterDismissed().subscribe((dados) =>{
-      //quando o bottomSheet fechar, isso acontece
-      this.ultimoPeso = dados.pesoAtualizado
-      this.arrayPeso.push(this.ultimoPeso)
-      this.arrayData.push(dados.data)
-      this.lineChartData = [{ data: this.arrayPeso, label: 'Peso(kg)' }];
-      this.lineChartLabels = this.arrayData;
-    })
+    this._bottomSheet
+      .open(BottomSheet, {
+        data: this.ultimoPeso,
+      })
+      .afterDismissed()
+      .subscribe((dados) => {
+        //quando o bottomSheet fechar, isso acontece
+        this.ultimoPeso = dados.pesoAtualizado;
+        this.arrayPeso.push(this.ultimoPeso);
+        this.arrayData.push(dados.data);
+        this.lineChartData = [{ data: this.arrayPeso, label: 'Peso(kg)' }];
+        this.lineChartLabels = this.arrayData;
+      });
+  }
+
+  async lembrar() {
+
+    this._pushNotifications.create('Lembre de Treinar!', {body: 'Ta na hora do treino, bora!'}).subscribe(
+      res => console.log(res),
+      err => console.log(err)
+  )
   }
 }
 
@@ -97,8 +112,6 @@ export class BottomSheet {
   ) {}
   pesoAtual: number;
   atualizarPeso() {
-
-
     let data = new Date();
     let dia = String(data.getDate()).padStart(2, '0');
     let mes = String(data.getMonth() + 1).padStart(2, '0');
@@ -108,12 +121,14 @@ export class BottomSheet {
       peso: this.pesoAtual,
       data: dataFormatada
     }
-    this.usuarioService.atualizarPeso("usuario@usuario.com", pesoData)
+    this.usuarioService.atualizarPeso(localStorage.getItem("emailLogado"), pesoData)
 
-    this._bottomSheetRef.dismiss({pesoAtualizado:this.pesoAtual, data: dataFormatada});
+    this._bottomSheetRef.dismiss({
+      pesoAtualizado: this.pesoAtual,
+      data: dataFormatada,
+    });
     this._snackBar.open('Peso atualizado!', 'X', {
       duration: 3000,
     });
-
   }
 }

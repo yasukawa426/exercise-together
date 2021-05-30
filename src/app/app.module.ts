@@ -30,6 +30,9 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
+import { PushNotificationsService } from 'ng-push'
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
@@ -67,8 +70,18 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     MatSnackBarModule,
     MatMenuModule,
     MatIconModule,
+    MatTabsModule,
+    MatProgressSpinnerModule
+    // PushNotificationsModule,
+    // ServiceWorkerModule.register('ngsw-worker.js', {
+    //   enabled: true,
+    //   // enabled: environment.production
+    //   // Register the ServiceWorker as soon as the app is stable
+    //   // or after 30 seconds (whichever comes first).
+    //   registrationStrategy: 'registerWhenStable:30000'
+    // }),
   ],
-  providers: [TreinoService, ExercicioService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [TreinoService, ExercicioService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, PushNotificationsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -4,6 +4,7 @@
   >
   <span class="separador"></span>
   <ul>
+    <li><button *ngIf="autenticado" mat-button (click)="irAdm()">Admin</button></li>
     <li><a *ngIf="!autenticado" mat-button routerLink="/login"> Login </a></li>
     <li><a *ngIf="!autenticado" mat-button routerLink="/signup"> Cadastrar </a></li>
     <li><button *ngIf="autenticado" (click)="onLogout()" mat-button>Logout</button></li>

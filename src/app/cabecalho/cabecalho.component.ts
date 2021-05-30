@@ -27,4 +27,8 @@ export class CabecalhoComponent implements OnInit, OnDestroy {
   onLogout(){
     this.usuarioService.logout()
   }
+
+  irAdm(){
+    window.open("http://localhost:3000/admin", '_blank')
+  }
 }

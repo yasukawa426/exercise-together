@@ -11,15 +11,22 @@ const Admin = require("../models/admin");
 AdminBro.registerAdapter(AdminBroMongoose);
 
 const adminBro = new AdminBro({
-  resources: [Usuario, Exercicio, Treino, Admin],
+  resources: [Usuario, Exercicio, Treino, {resource:Admin,
+  options:{
+    properties: {
+      password: {
+        isVisible: {list: false,edit:true, filter: false, show:false}
+      }
+    }
+  }}],
   rootPath: "/admin",
 });
 
-//por enquanto ta pegando a senha direto daqui
-const ADMIN = {
-  email: process.env.ADMIN_EMAIL || "admin@admin.com",
-  password: process.env.ADMIN_PASSWORD || "senha123",
-};
+
+// const ADMIN = {
+//   email: process.env.ADMIN_EMAIL || "admin@admin.com",
+//   password: process.env.ADMIN_PASSWORD || "senha123",
+// };
 
 const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
   cookieName: process.env.ADMIN_COOKIE_NAME || "admin-bro",

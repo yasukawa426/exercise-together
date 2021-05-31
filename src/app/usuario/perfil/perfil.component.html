@@ -19,7 +19,13 @@
       <hr />
       <!-- peso -->
       <span>
-        <span class="material-icons"> monitor_weight </span>{{ ultimoPeso }} kg
+        <span class="material-icons"> monitor_weight </span>
+        <span *ngIf="ultimoPeso!== undefined">
+          {{ ultimoPeso }} kg
+        </span >
+        <span *ngIf="ultimoPeso==undefined">
+          Nenhum peso salva ainda!
+        </span>
       </span>
       <span class="separador"></span>
       <button mat-icon-button (click)="abrirAtualizarPeso()" aria-label="add">

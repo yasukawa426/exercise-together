@@ -25,6 +25,7 @@ import { ChartsModule } from 'ng2-charts';
 import {
   BottomSheet,
   PerfilComponent,
+  Lembrar
 } from './usuario/perfil/perfil.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -36,6 +37,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     BottomSheet,
     DeletarDialogComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    Lembrar
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,9 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     MatMenuModule,
     MatIconModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule 
     // PushNotificationsModule,
     // ServiceWorkerModule.register('ngsw-worker.js', {
     //   enabled: true,
@@ -81,7 +87,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     //   registrationStrategy: 'registerWhenStable:30000'
     // }),
   ],
-  providers: [TreinoService, ExercicioService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, PushNotificationsService],
+  providers: [TreinoService, ExercicioService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, PushNotificationsService, MatDatepickerModule, {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

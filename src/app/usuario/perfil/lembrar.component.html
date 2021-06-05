@@ -1,0 +1,11 @@
+<div class="main">
+  <h1>Quando deseja ser lembrado?</h1>
+  <br>
+  <mat-form-field appearance="fill">
+    <!-- <mat-label>Data a ser lembrado</mat-label> -->
+    <input matInput [matDatepicker]="data" [formControl]="dataEscolhida"  [min]="dataMinima" >
+    <mat-datepicker-toggle matSuffix [for]="data"></mat-datepicker-toggle>
+    <mat-datepicker disabled="false" #data></mat-datepicker>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="agendarLembrete()" >Me lembre!</button>
+</div>

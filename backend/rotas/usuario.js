@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const checkAuth = require("../middleware/check-auth");
 const multer = require("multer");
+const nodemailer = require("nodemailer")
 
 const armazenamento = multer.diskStorage({
   //requisiçao, arquivo extraido e uma funçao que indica um erro ou devolve o diretorio que as //fotos vao ficar
@@ -185,6 +186,39 @@ router.post("/login", (req, res, next) => {
       });
     });
 });
+
+//envia email para o usuario
+router.post("/lembrar", (req, res, next) => {
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: "exercisetogetherx2@gmail.com",
+      pass: "Exercise2gether"
+    }
+  })
+  
+  let email = {
+    from: "exercisetogetherx2@gmail.com",
+    to: req.body.email,
+    subject: "Lembre de Treinar!",
+    text: "Bora la treinar! Tamo te esperando, hein!"
+  }
+  
+  transporter.sendMail(email, (error, info) => {
+    if (error){
+      console.log("Não enviado: ",error);
+      res.status(404).json({mensagem: "Email não agendado " + error})
+    }
+    else{
+      console.log("Email enviado: " + info.response);
+      res.status(200).json({mensagem: "Email agendado!"})
+    }
+  })
+
+} )
+
+
+
 
 //exportando
 module.exports = router;

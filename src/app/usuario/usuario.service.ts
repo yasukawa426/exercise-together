@@ -56,4 +56,15 @@ export class UsuarioService {
     })
     this.router.navigate(['/']);
   }
+
+  //envia um email pro usuario lembrando ele de treinar
+  lembrar(email:string){
+    const objeto = {
+      email:email
+    }
+    
+    this.httpClient.post<{mensagem: string}>(`http://localhost:3000/api/usuarios/lembrar`, objeto).subscribe((dados) => {
+      console.log(dados);      
+    })
+  }
 }

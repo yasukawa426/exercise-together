@@ -94,7 +94,9 @@ export class PerfilComponent implements OnInit {
     this._pushNotifications.create('Lembre de Treinar!', {body: 'Ta na hora do treino, bora!'}).subscribe(
       res => console.log(res),
       err => console.log(err)
-  )
+      )
+    
+    this.usuarioService.lembrar(this.usuario.email)
   }
 }
 

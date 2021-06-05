@@ -2,6 +2,7 @@
 
 const express = require("express");
 const usuario = require("../models/usuario");
+const Email = require("../models/email")
 const router = express.Router();
 const Usuario = require("../models/usuario");
 const bcrypt = require("bcrypt");
@@ -187,33 +188,48 @@ router.post("/login", (req, res, next) => {
     });
 });
 
-//envia email para o usuario
+//salva o email no banco
 router.post("/lembrar", (req, res, next) => {
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: "exercisetogetherx2@gmail.com",
-      pass: "Exercise2gether"
-    }
-  })
-  
-  let email = {
-    from: "exercisetogetherx2@gmail.com",
+
+  const email = new Email({
     to: req.body.email,
-    subject: "Lembre de Treinar!",
-    text: "Bora la treinar! Tamo te esperando, hein!"
-  }
-  
-  transporter.sendMail(email, (error, info) => {
-    if (error){
-      console.log("Não enviado: ",error);
-      res.status(404).json({mensagem: "Email não agendado " + error})
-    }
-    else{
-      console.log("Email enviado: " + info.response);
-      res.status(200).json({mensagem: "Email agendado!"})
-    }
+    data: req.body.data
   })
+
+  email.save().then(() => {
+    console.log("Email salvo!");
+    res.status(200).json({mensagem: "Email salvo no banco"})
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).json({mensagem: "Email não salvo: " + err})
+  })
+
+  //fazer isso quando chega a hora usando cron
+  // let transporter = nodemailer.createTransport({
+  //   service: 'gmail',
+  //   auth: {
+  //     user: "exercisetogetherx2@gmail.com",
+  //     pass: "Exercise2gether"
+  //   }
+  // })
+  
+  // let email = {
+  //   from: "exercisetogetherx2@gmail.com",
+  //   to: req.body.email,
+  //   subject: "Lembre de Treinar!",
+  //   text: "Bora la treinar! Tamo te esperando, hein!"
+  // }
+  
+  // transporter.sendMail(email, (error, info) => {
+  //   if (error){
+  //     console.log("Não enviado: ",error);
+  //     res.status(404).json({mensagem: "Email não agendado " + error})
+  //   }
+  //   else{
+  //     console.log("Email enviado: " + info.response);
+  //     res.status(200).json({mensagem: "Email agendado!"})
+  //   }
+  // })
 
 } )
 

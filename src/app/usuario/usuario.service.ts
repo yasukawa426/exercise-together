@@ -17,8 +17,8 @@ export class UsuarioService {
   //pega o usuario q tem esse email especifico.
   getUsuarioEmail(email: string) {
     return this.httpClient.get<{
-      peso: {peso:number, data:string}[];
-      treinos: Treino [];
+      peso: { peso: number; data: string }[];
+      treinos: Treino[];
       _id: string;
       nome: string;
       email: string;
@@ -26,45 +26,67 @@ export class UsuarioService {
   }
 
   //atualiza o peso do usuario com esse email
-  atualizarPeso(email:string, peso:{peso:number, data:string}){
-    this.httpClient.put<{mensagem: string, usuario: Usuario}>(`http://localhost:3000/api/usuarios/${email}/peso`,peso).subscribe((dados) =>{
-
-    })
+  atualizarPeso(email: string, peso: { peso: number; data: string }) {
+    this.httpClient
+      .put<{ mensagem: string; usuario: Usuario }>(
+        `http://localhost:3000/api/usuarios/${email}/peso`,
+        peso
+      )
+      .subscribe((dados) => {});
   }
 
   //atualiza td do usuario com esse email
-  atualizarUsuario(email: string, usuario: Usuario){
-    this.httpClient.put<{mensagem:string, usuario: Usuario}>(`http://localhost:3000/api/usuarios/${email}`, usuario).subscribe((dados) =>{
-
-    })
+  atualizarUsuario(email: string, usuario: Usuario) {
+    this.httpClient
+      .put<{ mensagem: string; usuario: Usuario }>(
+        `http://localhost:3000/api/usuarios/${email}`,
+        usuario
+      )
+      .subscribe((dados) => {});
   }
 
   //adiciona treino no usuario
-  adicionarTreino(nome:string, imagem:File, exercicios: Exercicio[], email: string){
+  adicionarTreino(
+    nome: string,
+    imagem: File,
+    exercicios: Exercicio[],
+    email: string
+  ) {
     /*const treino: Treino = {
       nome:nome,
       imagem: imagem,
       exercicios: exercicios,
     };*/
     const dadosTreino = new FormData();
-    dadosTreino.append("nome", nome);
+    dadosTreino.append('nome', nome);
     dadosTreino.append('imagem', imagem);
-    dadosTreino.append('exercicios', JSON.stringify(exercicios))
-    console.log("Uma linha antes de fazer o post")
-    this.httpClient.put<{mensagem: string, treino: Treino}>(`http://localhost:3000/api/usuarios/treino/${email}`, dadosTreino).subscribe((dados) => {
-      console.log("Uma linha dps de fazer o post")
-    })
+    dadosTreino.append('exercicios', JSON.stringify(exercicios));
+    console.log('Uma linha antes de fazer o post');
+    this.httpClient
+      .put<{ mensagem: string; treino: Treino }>(
+        `http://localhost:3000/api/usuarios/treino/${email}`,
+        dadosTreino
+      )
+      .subscribe((dados) => {
+        console.log('Uma linha dps de fazer o post');
+      });
     this.router.navigate(['/']);
   }
 
   //envia um email pro usuario lembrando ele de treinar
-  lembrar(email:string){
+  lembrar(email: string, data: number) {
     const objeto = {
-      email:email
-    }
-    
-    this.httpClient.post<{mensagem: string}>(`http://localhost:3000/api/usuarios/lembrar`, objeto).subscribe((dados) => {
-      console.log(dados);      
-    })
+      email: email,
+      data: data,
+    };
+
+    this.httpClient
+      .post<{ mensagem: string }>(
+        `http://localhost:3000/api/usuarios/lembrar`,
+        objeto
+      )
+      .subscribe((dados) => {
+        console.log(dados);
+      });
   }
 }

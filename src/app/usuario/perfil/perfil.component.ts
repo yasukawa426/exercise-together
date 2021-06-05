@@ -95,8 +95,12 @@ export class PerfilComponent implements OnInit {
       .open(Lembrar)
       .afterDismissed()
       .subscribe((dados) => {
-        console.log("Dados para salvar no banco no email (data, email): ",dados.dataFormatada, this.usuario.email);
-        
+        console.log(
+          'Dados para salvar no banco no email (data, email): ',
+          dados.dataFormatada,
+          this.usuario.email
+        );
+        this.usuarioService.lembrar(this.usuario.email, dados.dataFormatada);
         // vai fazer isso dps de fechar
         // this.usuarioService.lembrar(this.usuario.email);
       });
@@ -167,25 +171,22 @@ export class Lembrar {
     let mes = String(date.getMonth()).padStart(2, '0');
     let ano = date.getFullYear();
 
-  
     //o usuario só pode escolher o dia atual + 1
     this.dataMinima = new Date(ano, +mes, +dia + 1);
   }
   agendarLembrete() {
     console.log(this.dataEscolhida.value);
-    let dia = String(this.dataEscolhida.value.getDate()).padStart(2, '0')
-    let mes = String(this.dataEscolhida.value.getMonth() + 1).padStart(2, '0')
-    let ano = this.dataEscolhida.value.getFullYear()
-    let dataFormatada = Number(ano+mes+dia)
-    console.log("getDate: ", dia)
-    console.log("getMonth: ", mes)
-    console.log("getYear: ", ano);
+    let dia = String(this.dataEscolhida.value.getDate()).padStart(2, '0');
+    let mes = String(this.dataEscolhida.value.getMonth() + 1).padStart(2, '0');
+    let ano = this.dataEscolhida.value.getFullYear();
+    let dataFormatada = Number(ano + mes + dia);
+    console.log('getDate: ', dia);
+    console.log('getMonth: ', mes);
+    console.log('getYear: ', ano);
     // console.log("Data Formatada: ", dataFormatada)
 
-    
-
     this._bottomSheetRef.dismiss({
-      dataFormatada: dataFormatada
+      dataFormatada: dataFormatada,
     });
     // this._snackBar.open('Peso atualizado!', 'X', {
     //   duration: 3000,

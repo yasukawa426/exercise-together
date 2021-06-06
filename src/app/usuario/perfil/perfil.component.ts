@@ -188,8 +188,8 @@ export class Lembrar {
     this._bottomSheetRef.dismiss({
       dataFormatada: dataFormatada,
     });
-    // this._snackBar.open('Peso atualizado!', 'X', {
-    //   duration: 3000,
-    // });
+    this._snackBar.open('Lembrete salvo!', 'X', {
+      duration: 3000,
+    });
   }
 }

@@ -171,7 +171,7 @@ export class Lembrar {
     let mes = String(date.getMonth()).padStart(2, '0');
     let ano = date.getFullYear();
 
-    //o usuario só pode escolher o dia atual + 1
+    //o usuario só pode escolher o dia atual + 1 em frente
     this.dataMinima = new Date(ano, +mes, +dia + 1);
   }
   agendarLembrete() {

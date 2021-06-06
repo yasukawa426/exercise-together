@@ -23,6 +23,7 @@ mongoose.connect ('mongodb+srv://x2_admin:x20123@clusterx2.2ajvc.mongodb.net/exe
 
 
 
+
 //para ajustar o cabecalho da requisicao
   // app.use ((req, res, next) => {
   //   res.setHeader('Access-Control-Allow-Origin', "*");

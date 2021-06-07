@@ -9,7 +9,8 @@ import { Color, Label } from 'ng2-charts';
 import { Usuario } from '../usuario.model';
 import { UsuarioService } from '../usuario.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PushNotificationsService } from 'ng-push'
+import { PushNotificationsService } from 'ng-push';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-perfil',
@@ -39,7 +40,7 @@ export class PerfilComponent implements OnInit {
   public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
   //email de quem ta logado
-  email:string
+  email: string;
   constructor(
     public usuarioService: UsuarioService,
     private _bottomSheet: MatBottomSheet,
@@ -47,7 +48,7 @@ export class PerfilComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.email = localStorage.getItem('emailLogado')
+    this.email = localStorage.getItem('emailLogado');
     this.usuarioService
       .getUsuarioEmail(this.email)
       .subscribe((dadosUsuario) => {
@@ -69,7 +70,7 @@ export class PerfilComponent implements OnInit {
         //ultimo peso = ao ultimo peso do arrayPeso
         this.ultimoPeso = this.arrayPeso[this.arrayPeso.length - 1];
 
-        this._pushNotifications.requestPermission()
+        this._pushNotifications.requestPermission();
       });
   }
 
@@ -90,11 +91,24 @@ export class PerfilComponent implements OnInit {
   }
 
   async lembrar() {
+    this._bottomSheet
+      .open(Lembrar)
+      .afterDismissed()
+      .subscribe((dados) => {
+        console.log(
+          'Dados para salvar no banco no email (data, email): ',
+          dados.dataFormatada,
+          this.usuario.email
+        );
+        this.usuarioService.lembrar(this.usuario.email, dados.dataFormatada);
+        // vai fazer isso dps de fechar
+        // this.usuarioService.lembrar(this.usuario.email);
+      });
 
-    this._pushNotifications.create('Lembre de Treinar!', {body: 'Ta na hora do treino, bora!'}).subscribe(
-      res => console.log(res),
-      err => console.log(err)
-  )
+    // this._pushNotifications.create('Lembre de Treinar!', {body: 'Ta na hora do treino, bora!'}).subscribe(
+    //   res => console.log(res),
+    //   err => console.log(err)
+    //   )
   }
 }
 
@@ -119,15 +133,62 @@ export class BottomSheet {
     console.log('Data: ', dataFormatada);
     const pesoData = {
       peso: this.pesoAtual,
-      data: dataFormatada
-    }
-    this.usuarioService.atualizarPeso(localStorage.getItem("emailLogado"), pesoData)
+      data: dataFormatada,
+    };
+    this.usuarioService.atualizarPeso(
+      localStorage.getItem('emailLogado'),
+      pesoData
+    );
 
     this._bottomSheetRef.dismiss({
       pesoAtualizado: this.pesoAtual,
       data: dataFormatada,
     });
     this._snackBar.open('Peso atualizado!', 'X', {
+      duration: 3000,
+    });
+  }
+}
+
+@Component({
+  selector: 'app-lembrar',
+  templateUrl: './lembrar.component.html',
+  styleUrls: ['./lembrar.component.css'],
+})
+export class Lembrar {
+  dataEscolhida = new FormControl(
+    { value: new Date(), disabled: true },
+    { validators: [Validators.required] }
+  );
+  dataMinima: Date;
+  constructor(
+    private _bottomSheetRef: MatBottomSheetRef<BottomSheet>,
+    private _snackBar: MatSnackBar,
+    public usuarioService: UsuarioService
+  ) {
+    let date = new Date();
+    let dia = String(date.getDate()).padStart(2, '0');
+    let mes = String(date.getMonth()).padStart(2, '0');
+    let ano = date.getFullYear();
+
+    //o usuario só pode escolher o dia atual + 1 em frente
+    this.dataMinima = new Date(ano, +mes, +dia + 1);
+  }
+  agendarLembrete() {
+    console.log(this.dataEscolhida.value);
+    let dia = String(this.dataEscolhida.value.getDate()).padStart(2, '0');
+    let mes = String(this.dataEscolhida.value.getMonth() + 1).padStart(2, '0');
+    let ano = this.dataEscolhida.value.getFullYear();
+    let dataFormatada = Number(ano + mes + dia);
+    console.log('getDate: ', dia);
+    console.log('getMonth: ', mes);
+    console.log('getYear: ', ano);
+    // console.log("Data Formatada: ", dataFormatada)
+
+    this._bottomSheetRef.dismiss({
+      dataFormatada: dataFormatada,
+    });
+    this._snackBar.open('Lembrete salvo!', 'X', {
       duration: 3000,
     });
   }

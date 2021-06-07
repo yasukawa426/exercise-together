@@ -2,12 +2,18 @@
 
 const express = require("express");
 const usuario = require("../models/usuario");
+const Email = require("../models/email");
 const router = express.Router();
 const Usuario = require("../models/usuario");
+//faz criptografia
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const checkAuth = require("../middleware/check-auth");
 const multer = require("multer");
+//envia emails
+const nodemailer = require("nodemailer");
+//agenda tarefas
+const cron = require("node-cron");
 
 const armazenamento = multer.diskStorage({
   //requisiçao, arquivo extraido e uma funçao que indica um erro ou devolve o diretorio que as //fotos vao ficar
@@ -184,6 +190,91 @@ router.post("/login", (req, res, next) => {
         mensagem: "Login falhou:" + err,
       });
     });
+});
+
+//salva o email no banco
+router.post("/lembrar", (req, res, next) => {
+  const email = new Email({
+    to: req.body.email,
+    data: req.body.data,
+  });
+
+  email
+    .save()
+    .then(() => {
+      console.log("Email salvo!");
+      res.status(200).json({ mensagem: "Email salvo no banco" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ mensagem: "Email não salvo: " + err });
+    });
+});
+
+//checa se tem algum email pendente para enviar a cada 20 mins, das 6h-22h
+cron.schedule("0,20,40 6-22 * * *", () => {
+  let date = new Date();
+  let dataFormatada = Number(
+    String(date.getFullYear()) +
+      String(date.getMonth() + 1).padStart(2, "0") +
+      String(date.getDate()).padStart(2, "0")
+  );
+  console.log("To rodando a cada minuto", date);
+  console.log("Data de hj formatada: ", dataFormatada);
+  Email.find({}, function (erro, documentos) {
+    //deu erro
+    if (erro !== null) {
+      console.log("Erro: ", erro);
+      return;
+    }
+
+    //N tem nenhum email no banco
+    if (documentos.length == 0) {
+      console.log("Nenhum email pendente");
+      return;
+    }
+
+    console.log("Documentos: ", documentos);
+    documentos.forEach((email) => {
+      // console.log("To: ", email.to);
+      // console.log("data: ", email.data);
+
+      if (email.data <= dataFormatada) {
+        console.log("Ta na hora de enviar o email para " + email.to);
+
+        //criando o transporter
+        let transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: "exercisetogetherx2@gmail.com",
+            pass: "Exercise2gether",
+          },
+        });
+
+        //configurando o email
+        let emailEnviar = {
+          from: "exercisetogetherx2@gmail.com",
+          to: email.to,
+          subject: "Lembre de Treinar!",
+          text: "Bora la treinar! Tamo te esperando, hein!",
+        };
+
+        //enviando
+        transporter.sendMail(emailEnviar, (error, info) => {
+          if (error) {
+            console.log("Não enviado: ", error);
+          } else {
+            console.log("Email enviado: " + info.response);
+          }
+        });
+
+        //dps de enviar, deleta o email do banco
+        Email.deleteOne({ to: email.to, data: email.data }, (mensagem) => {
+          // console.log(mensagem);
+        });
+      }
+    });
+  });
 });
 
 //exportando
